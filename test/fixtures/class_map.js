@@ -240,4 +240,11 @@ module.exports = {
       isStatic: true,
     },
   },
+
+  'com.alipay.test.Request': {
+    'data': {
+      'type': 'T',
+      'typeAliasIndex': 0,
+    },
+  },
 };

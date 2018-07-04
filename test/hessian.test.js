@@ -997,6 +997,27 @@ describe('test/hessian.test.js', () => {
         const buf4 = encode(converted, version);
         assert.deepEqual(buf1, buf4);
       });
+
+      it('should support generic with typeAliasIndex', () => {
+        const obj = {
+          $class: 'com.alipay.test.Request',
+          $: {
+            data: '123',
+          },
+          generic: [{ type: 'java.lang.String' }],
+        };
+        const buf1 = hessian.encode({
+          $class: 'com.alipay.test.Request',
+          $: {
+            data: { $class: 'java.lang.String', $: '123' },
+          },
+        }, version);
+        const buf2 = encode(obj, version, classMap);
+        assert.deepEqual(buf1, buf2);
+
+        const buf3 = encode(obj, version, classMap);
+        assert.deepEqual(buf1, buf3);
+      });
     });
   });
 });
