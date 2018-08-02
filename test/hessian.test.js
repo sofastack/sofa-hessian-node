@@ -1018,6 +1018,37 @@ describe('test/hessian.test.js', () => {
         const buf3 = encode(obj, version, classMap);
         assert.deepEqual(buf1, buf3);
       });
+
+      it('should class inheritance', () => {
+        const obj = {
+          $class: 'com.alipay.test.Father',
+          $: {
+            $class: 'com.alipay.test.Child',
+            $: {
+              foo: 'bar',
+              bar: 'foo',
+            },
+          },
+        };
+        const buf1 = hessian.encode({
+          $class: 'com.alipay.test.Child',
+          $: {
+            foo: {
+              $class: 'java.lang.String',
+              $: 'bar',
+            },
+            bar: {
+              $class: 'java.lang.String',
+              $: 'foo',
+            },
+          },
+        }, version);
+        const buf2 = encode(obj, version, classMap);
+        assert.deepEqual(buf1, buf2);
+
+        const buf3 = encode(obj, version, classMap);
+        assert.deepEqual(buf1, buf3);
+      });
     });
   });
 });

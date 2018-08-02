@@ -1,6 +1,19 @@
 'use strict';
 
 module.exports = {
+  'com.alipay.test.Father': {
+    foo: {
+      type: 'java.lang.String',
+    },
+  },
+  'com.alipay.test.Child': {
+    foo: {
+      type: 'java.lang.String',
+    },
+    bar: {
+      type: 'java.lang.String',
+    },
+  },
   'com.test.service.ctx.UniformContextHeaders': {
     invokeId: {
       type: 'java.lang.String',
