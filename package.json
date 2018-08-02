@@ -35,7 +35,7 @@
   "dependencies": {
     "@protobufjs/codegen": "^2.0.4",
     "debug": "^3.1.0",
-    "hessian.js-1": "^1.8.2",
+    "hessian.js-1": "^1.8.3",
     "utility": "^1.14.0"
   },
   "devDependencies": {
@@ -43,9 +43,9 @@
     "beautify-benchmark": "^0.2.4",
     "benchmark": "^2.1.4",
     "contributors": "^0.5.1",
-    "egg-bin": "^4.7.1",
+    "egg-bin": "^4.8.1",
     "egg-ci": "^1.8.0",
-    "eslint": "^5.0.1",
+    "eslint": "^5.2.0",
     "eslint-config-egg": "^7.0.0",
     "js-to-java": "^2.6.0",
     "long": "^4.0.0"
