@@ -1,4 +1,10 @@
 
+1.0.2 / 2018-08-02
+==================
+
+**fixes**
+  * [[`a847bf4`](http://github.com/alipay/sofa-hessian-node/commit/a847bf4232ad1e4a3396a8f25f58c254b2684d2b)] - fix: support class inheritance (#4) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.0.1 / 2018-07-04
 ==================
 
