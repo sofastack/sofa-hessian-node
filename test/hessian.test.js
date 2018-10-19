@@ -1049,6 +1049,21 @@ describe('test/hessian.test.js', () => {
         const buf3 = encode(obj, version, classMap);
         assert.deepEqual(buf1, buf3);
       });
+
+      it('should handle same enum defaultValue', () => {
+        const buf1 = hessian.encode({
+          $class: 'com.sofa.TestObject',
+          $: {
+            oneEnum: { $class: 'com.sofa.OneEnum', $: { name: 'DEFAULT' } },
+            twoEnum: { $class: 'com.sofa.TwoEnum', $: { name: 'DEFAULT' } },
+          },
+        }, version);
+        const buf2 = encode({
+          $class: 'com.sofa.TestObject',
+          $: {},
+        }, version, classMap);
+        assert.deepEqual(buf1, buf2);
+      });
     });
   });
 });

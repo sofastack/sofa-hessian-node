@@ -260,4 +260,20 @@ module.exports = {
       'typeAliasIndex': 0,
     },
   },
+
+  'com.sofa.TestObject': {
+    'oneEnum': {
+      'type': 'com.sofa.OneEnum',
+      'defaultValue': 'DEFAULT',
+      'isEnum': true,
+    },
+    /**
+     * 对业务影响分级
+     */
+    'twoEnum': {
+      'type': 'com.sofa.TwoEnum',
+      'defaultValue': 'DEFAULT',
+      'isEnum': true,
+    },
+  },
 };
