@@ -1,4 +1,10 @@
 
+1.0.3 / 2018-10-19
+==================
+
+**fixes**
+  * [[`27ec0d5`](http://github.com/alipay/sofa-hessian-node/commit/27ec0d587d302e0bef370d46a1cbcaeea3c15061)] - fix: encode enum defaultValue issue & list generic issue (#5) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.0.2 / 2018-08-02
 ==================
 
