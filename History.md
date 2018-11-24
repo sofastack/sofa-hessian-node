@@ -1,4 +1,10 @@
 
+1.0.4 / 2018-11-24
+==================
+
+**fixes**
+  * [[`fc59ab4`](http://github.com/alipay/sofa-hessian-node/commit/fc59ab4bd5e9f4973491b3be1bb354990913d6d6)] - fix: prop defaultValue encode confused (#6) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.0.3 / 2018-10-19
 ==================
 
