@@ -912,6 +912,7 @@ describe('test/hessian.test.js', () => {
       });
 
       it('should encode complex object', () => {
+        const obj2 = { name: 'xxx', finalField: 'xxx' };
         const obj = {
           $class: 'com.alipay.test.TestObj',
           $: {
@@ -924,9 +925,7 @@ describe('test/hessian.test.js', () => {
             bs: new Buffer([ 0x02, 0x00, 0x01, 0x07 ]),
             list1: [{ name: 'A' }, { name: 'B' }],
             list2: [ 2017, 2016 ],
-            list3: [{ name: 'aaa', finalField: 'xxx' },
-              { name: 'bbb', finalField: 'xxx' },
-            ],
+            list3: [ obj2, obj2 ],
             list4: [ 'xxx', 'yyy' ],
             list5: [ new Buffer([ 0x02, 0x00, 0x01, 0x07 ]), new Buffer([ 0x02, 0x00, 0x01, 0x06 ]) ],
             map1: { 2017: { name: 'B' } },
@@ -939,6 +938,7 @@ describe('test/hessian.test.js', () => {
           },
         };
 
+        const convertedObj2 = { $class: 'com.alipay.test.sub.TestObj2', $: { name: { $class: 'java.lang.String', $: 'xxx' }, finalField: { $class: 'java.lang.String', $: 'xxx' } } };
         const converted = {
           $class: 'com.alipay.test.TestObj',
           $: {
@@ -959,8 +959,8 @@ describe('test/hessian.test.js', () => {
             list3: {
               $class: 'java.util.List',
               $: [
-                { $class: 'com.alipay.test.sub.TestObj2', $: { name: { $class: 'java.lang.String', $: 'aaa' }, finalField: { $class: 'java.lang.String', $: 'xxx' } } },
-                { $class: 'com.alipay.test.sub.TestObj2', $: { name: { $class: 'java.lang.String', $: 'bbb' }, finalField: { $class: 'java.lang.String', $: 'xxx' } } },
+                convertedObj2,
+                convertedObj2,
               ],
             },
             list4: { $class: 'java.util.List', $: [{ $class: 'java.lang.String', $: 'xxx' }, { $class: 'java.lang.String', $: 'yyy' }] },
