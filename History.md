@@ -1,4 +1,10 @@
 
+1.0.6 / 2018-11-27
+==================
+
+**fixes**
+  * [[`5abb263`](http://github.com/alipay/sofa-hessian-node/commit/5abb26346f760c41bfbc5ec25e9c37b2fe9c69c4)] - fix: enum should be in object ref list (#8) (killa <<killa123@126.com>>)
+
 1.0.5 / 2018-11-27
 ==================
 
