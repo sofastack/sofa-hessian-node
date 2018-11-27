@@ -24,6 +24,14 @@ describe('test/edge_case.test.js', () => {
         defaultValue: 10,
       },
     },
+    'org.sofa.TestObjectD': {
+      list: {
+        type: 'java.util.List',
+        generic: [
+          { type: 'java.lang.Object' },
+        ],
+      },
+    },
   };
 
   [
@@ -51,6 +59,35 @@ describe('test/edge_case.test.js', () => {
       };
       const bufC = encode(c, version, classMap);
       assert.deepEqual(hessian.decode(bufC, version), { size: 10 });
+    });
+
+    it('support list property with $class & $', () => {
+      const obj1 = {
+        $class: 'org.sofa.TestObjectD',
+        $: {
+          list: [{
+            $class: 'java.lang.String',
+            $: '123',
+          }],
+        },
+      };
+      const buf1 = encode(obj1, version, classMap);
+
+      const obj2 = {
+        $class: 'org.sofa.TestObjectD',
+        $: {
+          list: {
+            $class: 'java.util.List',
+            $: [{
+              $class: 'java.lang.String',
+              $: '123',
+            }],
+          },
+        },
+      };
+      const buf2 = encode(obj2, version, classMap);
+
+      assert.deepEqual(buf1, buf2);
     });
   });
 });
