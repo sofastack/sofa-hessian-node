@@ -1,6 +1,6 @@
 {
   "name": "sofa-hessian-node",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "An internal improved version of Hessian powered by Ant Financial.",
   "main": "index.js",
   "files": [

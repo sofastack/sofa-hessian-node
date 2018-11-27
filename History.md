@@ -1,4 +1,10 @@
 
+1.0.5 / 2018-11-27
+==================
+
+**fixes**
+  * [[`0ed18dd`](http://github.com/alipay/sofa-hessian-node/commit/0ed18dd9ad0e1774e680d74bc30fb598d4b915e2)] - fix: support list property with $class & $ (#7) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.0.4 / 2018-11-24
 ==================
 
