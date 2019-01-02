@@ -32,6 +32,16 @@ describe('test/edge_case.test.js', () => {
         ],
       },
     },
+
+    'org.sofa.TestObjectE': {
+      info: {
+        type: 'java.util.Map',
+        generic: [
+          { type: 'java.lang.String' },
+          { type: 'java.util.List', generic: [{ type: 'java.lang.Object' }] },
+        ],
+      },
+    },
   };
 
   [
@@ -88,6 +98,26 @@ describe('test/edge_case.test.js', () => {
       const buf2 = encode(obj2, version, classMap);
 
       assert.deepEqual(buf1, buf2);
+    });
+
+    it('generic list with array type', () => {
+      const obj1 = {
+        $class: 'org.sofa.TestObjectE',
+        $: {
+          info: {
+            xxxx: {
+              $class: 'java.util.List',
+              $: [{
+                $class: 'java.lang.String',
+                $: [ '11', '22' ],
+                isArray: true,
+              }],
+            },
+          },
+        },
+      };
+      const buf = encode(obj1, version, classMap);
+      console.log(buf);
     });
   });
 });
