@@ -1,4 +1,10 @@
 
+1.0.7 / 2019-01-02
+==================
+
+**fixes**
+  * [[`ad6e892`](http://github.com/alipay/sofa-hessian-node/commit/ad6e89205476e8df5e75459eeb8b46eacb15be5d)] - fix: encoding list error with generic array type (#9) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.0.6 / 2018-11-27
 ==================
 
