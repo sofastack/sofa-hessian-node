@@ -1,4 +1,10 @@
 
+1.1.1 / 2019-01-11
+==================
+
+**fixes**
+  * [[`7a3e717`](http://github.com/alipay/sofa-hessian-node/commit/7a3e7174b8bf2c234de485815a5e382899556c8b)] - fix: give a default value to options of compile (#12) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.1.0 / 2019-01-11
 ==================
 
