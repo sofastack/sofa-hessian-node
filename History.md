@@ -1,4 +1,10 @@
 
+1.1.0 / 2019-01-11
+==================
+
+**features**
+  * [[`cb4df5d`](http://github.com/alipay/sofa-hessian-node/commit/cb4df5d57a62c1e2aa54fe4f2292e68c38d9178d)] - feat: add debug mode (#10) (killa <<killa123@126.com>>)
+
 1.0.7 / 2019-01-02
 ==================
 
