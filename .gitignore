@@ -19,3 +19,6 @@ run
 !.travis.yml
 !.autod.conf.js
 *.bin
+
+test/fixtures/src_1.0
+test/fixtures/src_2.0

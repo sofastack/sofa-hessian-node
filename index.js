@@ -5,11 +5,15 @@ const compile = require('./lib/compile');
 const encoderV1 = require('hessian.js-1').encoderV1;
 const encoderV2 = require('hessian.js-1').encoderV2;
 
-exports.encode = (obj, version, classMap, appClassMap) => {
+exports.encode = (obj, version, classMap, appClassMap, options) => {
+  options = Object.assign({}, options, {
+    debug: !!process.env.HESSIAN_COMPILE_DEBUG,
+    debugDir: process.env.HESSIAN_COMPILE_DEBUG_DIR,
+  });
   const encoder = version === '2.0' ? encoderV2 : encoderV1;
   encoder.reset();
   if (classMap) {
-    compile(obj, version, classMap)(obj.$, encoder, appClassMap);
+    compile(obj, version, classMap, options)(obj.$, encoder, appClassMap);
   } else {
     encoder.write(obj);
   }

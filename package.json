@@ -48,7 +48,10 @@
     "eslint": "^5.11.1",
     "eslint-config-egg": "^7.1.0",
     "js-to-java": "^2.6.0",
-    "long": "^4.0.0"
+    "long": "^4.0.0",
+    "mkdirp": "^0.5.1",
+    "mm": "^2.4.1",
+    "rimraf": "^2.6.3"
   },
   "engines": {
     "node": ">= 8.0.0"
