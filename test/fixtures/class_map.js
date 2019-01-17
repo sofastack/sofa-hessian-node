@@ -276,4 +276,31 @@ module.exports = {
       'isEnum': true,
     },
   },
+
+  'com.eggjs.dubbo.GenericResult': {
+    'success': {
+      'type': 'java.lang.Boolean'
+    },
+    'result': {
+      'type': 'T',
+      'typeAliasIndex': 0
+    },
+    'error': {
+      'type': 'U',
+      'typeAliasIndex': 1
+    }
+  },
+  'com.eggjs.dubbo.HelloResponse': {
+    'hello': {
+      'type': 'java.lang.String'
+    }
+  },
+  'com.eggjs.dubbo.HelloError': {
+    'name': {
+      'type': 'java.lang.String'
+    },
+    'message': {
+      'type': 'java.lang.String'
+    }
+  },
 };
