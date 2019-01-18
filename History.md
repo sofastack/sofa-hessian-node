@@ -1,4 +1,10 @@
 
+1.1.2 / 2019-01-18
+==================
+
+**fixes**
+  * [[`daf8213`](http://github.com/alipay/sofa-hessian-node/commit/daf821336e7959a669d4899f1a82f501b5b5b2b1)] - fix: nested generic bug (#13) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.1.1 / 2019-01-11
 ==================
 
