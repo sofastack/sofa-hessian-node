@@ -1042,6 +1042,69 @@ describe('test/hessian.test.js', () => {
         assert.deepEqual(buf1, buf3);
       });
 
+      it('should support nested generic with typeAliasIndex', () => {
+        const obj = {
+          $class: 'com.eggjs.dubbo.GenericResult',
+          $: {
+            success: true,
+            result: [{
+              hello: 'world',
+            }],
+            error: {
+              name: 'MockError',
+              message: 'mock MockError',
+            },
+          },
+          generic: [{
+            type: 'java.util.List',
+            generic: [{
+              type: 'com.eggjs.dubbo.HelloResponse',
+            }],
+          }, {
+            type: 'com.eggjs.dubbo.HelloError',
+          }],
+        };
+        const buf1 = hessian.encode({
+          $class: 'com.eggjs.dubbo.GenericResult',
+          $: {
+            success: {
+              $class: 'java.lang.Boolean',
+              $: true,
+            },
+            result: {
+              $class: 'java.util.List',
+              $: [{
+                $class: 'com.eggjs.dubbo.HelloResponse',
+                $: {
+                  hello: {
+                    $class: 'java.lang.String',
+                    $: 'world',
+                  },
+                },
+              }],
+            },
+            error: {
+              $class: 'com.eggjs.dubbo.HelloError',
+              $: {
+                name: {
+                  $class: 'java.lang.String',
+                  $: 'MockError',
+                },
+                message: {
+                  $class: 'java.lang.String',
+                  $: 'mock MockError',
+                },
+              },
+            },
+          },
+        }, version);
+        const buf2 = encode(obj, version, classMap, {}, options);
+        assert.deepEqual(buf1, buf2);
+
+        const buf3 = encode(obj, version, classMap, {}, options);
+        assert.deepEqual(buf1, buf3);
+      });
+
       it('should class inheritance', () => {
         const obj = {
           $class: 'com.alipay.test.Father',
