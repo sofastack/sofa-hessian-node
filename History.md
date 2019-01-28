@@ -1,4 +1,10 @@
 
+1.2.0 / 2019-01-28
+==================
+
+**fixes**
+  * [[`02a7b58`](http://github.com/alipay/sofa-hessian-node/commit/02a7b58dd7e739ed2bc3a8572c78168d96be0283)] - fix: enum default encode with (#14) (tangyao <<2001-wms@163.com>>)
+
 1.1.2 / 2019-01-18
 ==================
 
