@@ -198,12 +198,38 @@ describe('test/hessian.test.js', () => {
         assert.deepEqual(buf1, buf3);
       });
 
-      it('should encode enum', () => {
+      it('should encode enum with old name', () => {
         const obj = {
           $class: 'com.test.model.datum.DatumStaus',
           $: {
             code: 'PRERELEASING',
             name: 'PRERELEASING',
+            message: '预发中',
+            ordinal: 1,
+            eql() {
+              //
+            },
+          },
+          isEnum: true,
+        };
+        const buf1 = hessian.encode({
+          $class: 'com.test.model.datum.DatumStaus',
+          $: { name: 'PRERELEASING' },
+        }, version);
+        const buf2 = encode(obj, version, {}, {}, options);
+        assert.deepEqual(buf1, buf2);
+
+        const buf3 = encode(obj, version, {}, {}, options);
+        assert.deepEqual(buf1, buf3);
+      });
+
+      it('should encode enum new $name', () => {
+        const obj = {
+          $class: 'com.test.model.datum.DatumStaus',
+          $: {
+            $name: 'PRERELEASING',
+            code: 'PRERELEASING2',
+            name: 'PRERELEASING2',
             message: '预发中',
             ordinal: 1,
             eql() {
