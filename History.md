@@ -1,4 +1,10 @@
 
+1.3.0 / 2019-02-14
+==================
+
+**features**
+  * [[`6a0fb0f`](http://github.com/alipay/sofa-hessian-node/commit/6a0fb0faaa4084574da6743d51c81b088da98b51)] - feat: compatible with property with $class & $ (#15) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.2.0 / 2019-01-28
 ==================
 
