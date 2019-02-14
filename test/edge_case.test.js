@@ -3,47 +3,9 @@
 const assert = require('assert');
 const encode = require('../').encode;
 const hessian = require('hessian.js-1');
+const classMap = require('./fixtures/edge_class_map');
 
 describe('test/edge_case.test.js', () => {
-  const classMap = {
-    'org.sofa.TestObjectA': {
-      size: {
-        type: 'int',
-        defaultValue: 10,
-      },
-    },
-    'org.sofa.TestObjectB': {
-      size: {
-        type: 'int',
-        defaultValue: 1,
-      },
-    },
-    'org.sofa.TestObjectC': {
-      size: {
-        type: 'int',
-        defaultValue: 10,
-      },
-    },
-    'org.sofa.TestObjectD': {
-      list: {
-        type: 'java.util.List',
-        generic: [
-          { type: 'java.lang.Object' },
-        ],
-      },
-    },
-
-    'org.sofa.TestObjectE': {
-      info: {
-        type: 'java.util.Map',
-        generic: [
-          { type: 'java.lang.String' },
-          { type: 'java.util.List', generic: [{ type: 'java.lang.Object' }] },
-        ],
-      },
-    },
-  };
-
   [
     '1.0',
     '2.0',
@@ -118,6 +80,114 @@ describe('test/edge_case.test.js', () => {
       };
       const buf = encode(obj1, version, classMap);
       console.log(buf);
+    });
+
+    it('should be compatible with property with $class/$', () => {
+      const obj = {
+        $class: 'org.sofa.TestObjectF',
+        $: {
+          enum: {
+            $class: 'org.sofa.enums.TestTypeEnum',
+            $: {
+              name: 'AAA',
+            },
+          },
+          string: {
+            $class: 'java.lang.String',
+            $: '123',
+          },
+          bool: {
+            $class: 'bool',
+            $: false,
+          },
+          boolean: {
+            $class: 'java.lang.Boolean',
+            $: false,
+          },
+          int: {
+            $class: 'int',
+            $: 123,
+          },
+          integer: {
+            $class: 'java.lang.Integer',
+            $: 123,
+          },
+          long: {
+            $class: 'long',
+            $: 100000,
+          },
+          long2: {
+            $class: 'java.lang.Long',
+            $: 100000,
+          },
+          double: {
+            $class: 'double',
+            $: 1.2,
+          },
+          double2: {
+            $class: 'java.lang.Double',
+            $: 1.2,
+          },
+          map: {
+            $class: 'java.util.Map',
+            $: {
+              a: 'a',
+            },
+          },
+          list: {
+            $class: 'java.util.List',
+            $: [ 1 ],
+          },
+          arraylist: {
+            $class: 'java.util.ArrayList',
+            $: [ 123 ],
+          },
+          date: {
+            $class: 'java.util.Date',
+            $: 1471096717898,
+          },
+          clazz: {
+            $class: 'java.lang.Class',
+            $: {
+              name: '[java.lang.String',
+            },
+          },
+          currency: {
+            $class: 'java.util.Currency',
+            $: 'CNY',
+          },
+          bigdecimal: {
+            $class: 'java.math.BigDecimal',
+            $: { value: '100.06' },
+          },
+          locale: {
+            $class: 'java.util.Locale',
+            $: 'zh_CN',
+          },
+        },
+      };
+      const buf = encode(obj, version, classMap);
+      const res = hessian.decode(buf, version);
+      assert.deepEqual(res, {
+        enum: { name: 'AAA' },
+        string: '123',
+        bool: false,
+        boolean: false,
+        int: 123,
+        integer: 123,
+        long: 100000,
+        long2: 100000,
+        double: 1.2,
+        double2: 1.2,
+        map: { a: 'a' },
+        list: [ 1 ],
+        arrayList: null,
+        date: new Date(1471096717898),
+        clazz: { name: '[java.lang.String' },
+        currency: { currencyCode: 'CNY' },
+        bigdecimal: { value: '100.06' },
+        locale: { value: 'zh_CN' },
+      });
     });
   });
 });
