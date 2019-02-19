@@ -960,6 +960,76 @@ describe('test/hessian.test.js', () => {
         });
       });
 
+      it('should support java.util.concurrent.atomic.AtomicLong', () => {
+        const obj = {
+          $class: 'java.util.concurrent.atomic.AtomicLong',
+          $: '100',
+        };
+        const buf1 = hessian.encode({
+          $class: 'java.util.concurrent.atomic.AtomicLong',
+          $: {
+            value: {
+              $class: 'long',
+              $: 100,
+            },
+          },
+        }, version);
+        const buf2 = encode(obj, version, {}, {}, options);
+        assert.deepEqual(buf1, buf2);
+
+        const buf3 = encode(obj, version, {}, {}, options);
+        assert.deepEqual(buf1, buf3);
+      });
+
+      it('should support java.util.concurrent.atomic.AtomicLong 2', () => {
+        const obj = {
+          $class: 'java.util.concurrent.atomic.AtomicLong',
+          $: {
+            value: '100',
+          },
+        };
+        const buf1 = hessian.encode({
+          $class: 'java.util.concurrent.atomic.AtomicLong',
+          $: {
+            value: {
+              $class: 'long',
+              $: 100,
+            },
+          },
+        }, version);
+        const buf2 = encode(obj, version, {}, {}, options);
+        assert.deepEqual(buf1, buf2);
+
+        const buf3 = encode(obj, version, {}, {}, options);
+        assert.deepEqual(buf1, buf3);
+      });
+
+      it('should support java.util.concurrent.atomic.AtomicLong 3', () => {
+        const obj = {
+          $class: 'java.util.concurrent.atomic.AtomicLong',
+          $: {
+            value: {
+              $class: 'long',
+              $: 100,
+            },
+          },
+        };
+        const buf1 = hessian.encode({
+          $class: 'java.util.concurrent.atomic.AtomicLong',
+          $: {
+            value: {
+              $class: 'long',
+              $: 100,
+            },
+          },
+        }, version);
+        const buf2 = encode(obj, version, {}, {}, options);
+        assert.deepEqual(buf1, buf2);
+
+        const buf3 = encode(obj, version, {}, {}, options);
+        assert.deepEqual(buf1, buf3);
+      });
+
       it('should encode complex object', () => {
         const obj2 = { name: 'xxx', finalField: 'xxx' };
         const obj = {
