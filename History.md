@@ -1,4 +1,10 @@
 
+1.4.0 / 2019-02-19
+==================
+
+**features**
+  * [[`014e2d3`](http://github.com/alipay/sofa-hessian-node/commit/014e2d3e2dd36de0a612693f0cf62c2b478165c9)] - feat: support java.util.concurrent.atomic.AtomicLong (#16) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.3.0 / 2019-02-14
 ==================
 
