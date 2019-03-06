@@ -189,5 +189,24 @@ describe('test/edge_case.test.js', () => {
         locale: { value: 'zh_CN' },
       });
     });
+
+    it('should validate enum name', () => {
+      const obj = {
+        $class: 'com.test.model.datum.DatumStaus',
+        $: {
+          name: 'PRERELEASING_INVALIDATE',
+        },
+        isEnum: true,
+      };
+      let error;
+      try {
+        encode(obj, version, classMap);
+      } catch (e) {
+        error = e;
+      } finally {
+        assert(error);
+        assert(error.message === 'enum: com.test.model.datum.DatumStaus have no name: PRERELEASING_INVALIDATE');
+      }
+    });
   });
 });

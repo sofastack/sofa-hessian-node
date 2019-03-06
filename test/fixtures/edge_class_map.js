@@ -1,5 +1,7 @@
 'use strict';
 
+const Enums = require('enums');
+
 module.exports = {
   'org.sofa.TestObjectA': {
     size: {
@@ -95,5 +97,7 @@ module.exports = {
       type: 'java.util.Locale',
     },
   },
-
+  'com.test.model.datum.DatumStaus': new Enums([
+    { $name: 'PRERELEASING', name: 'PRERELEASING' },
+  ]),
 };
