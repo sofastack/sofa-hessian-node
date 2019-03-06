@@ -1,4 +1,10 @@
 
+1.5.0 / 2019-03-06
+==================
+
+**features**
+  * [[`7dae8ca`](http://github.com/alipay/sofa-hessian-node/commit/7dae8cace6c55cf769b1d7aec370b0a43fb14ca9)] - feat: validate enum name (#18) (killa <<killa123@126.com>>)
+
 1.4.0 / 2019-02-19
 ==================
 
