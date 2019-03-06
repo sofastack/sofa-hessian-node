@@ -44,6 +44,7 @@
     "contributors": "^0.5.1",
     "egg-bin": "^4.10.0",
     "egg-ci": "^1.11.0",
+    "enums": "^1.0.1",
     "eslint": "^5.13.0",
     "eslint-config-egg": "^7.1.0",
     "js-to-java": "^2.6.1",
