@@ -208,5 +208,18 @@ describe('test/edge_case.test.js', () => {
         assert(error.message === 'enum: com.test.model.datum.DatumStaus have no name: PRERELEASING_INVALIDATE');
       }
     });
+
+    it('enum name not equal $name', () => {
+      const obj = {
+        $class: 'com.test.model.datum.DatumStaus2',
+        $: {
+          name: 'PRERELEASING',
+        },
+        isEnum: true,
+      };
+      const buf = encode(obj, version, classMap);
+      const res = hessian.decode(buf, version);
+      assert.deepStrictEqual(res, { name: 'PRERELEASING' });
+    });
   });
 });

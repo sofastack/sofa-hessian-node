@@ -100,4 +100,7 @@ module.exports = {
   'com.test.model.datum.DatumStaus': new Enums([
     { $name: 'PRERELEASING', name: 'PRERELEASING' },
   ]),
+  'com.test.model.datum.DatumStaus2': new Enums([
+    { $name: 'PRERELEASING', name: 'TEST_NAME' },
+  ]),
 };
