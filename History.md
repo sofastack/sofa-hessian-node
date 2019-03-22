@@ -1,4 +1,10 @@
 
+1.5.1 / 2019-03-22
+==================
+
+**fixes**
+  * [[`83026eb`](http://github.com/alipay/sofa-hessian-node/commit/83026ebd616c2d1c0fdba45649fc78fca905c091)] - fix: fix when enum name not equal $name (#19) (killa <<killa123@126.com>>)
+
 1.5.0 / 2019-03-06
 ==================
 
