@@ -221,5 +221,89 @@ describe('test/edge_case.test.js', () => {
       const res = hessian.decode(buf, version);
       assert.deepStrictEqual(res, { name: 'PRERELEASING' });
     });
+
+    describe.only('recursive compile', () => {
+      const appClassMap = {
+        'org.sofa.SimpleObject': {
+          size: {
+            type: 'int',
+            defaultValue: 10,
+          },
+        },
+      };
+
+      it('should compile Map', () => {
+        const testObject = {};
+        Object.defineProperty(testObject, 'size', {
+          value: 20,
+          enumerable: false,
+        });
+        const obj = {
+          $class: 'java.util.Map',
+          $: {
+            depth1: {
+              $class: 'java.util.Map',
+              $: {
+                depth2: {
+                  $class: 'org.sofa.SimpleObject',
+                  $: testObject,
+                },
+              },
+            },
+          },
+        };
+        const buf = encode(obj, version, classMap, appClassMap);
+        const res = hessian.decode(buf, version);
+        assert.deepStrictEqual(res, { depth1: { depth2: { size: 20 } } });
+      });
+
+      it.only('should compile object', () => {
+        const testObject = {};
+        Object.defineProperty(testObject, 'size', {
+          value: 20,
+          enumerable: false,
+        });
+        // const obj = {
+        //   $class: 'java.util.List',
+        //   generic: [{
+        //     type: 'java.lang.Object',
+        //   }],
+        //   $: [{
+        //     $class: 'java.util.List',
+        //     generic: [{
+        //       type: 'java.lang.Object',
+        //     }],
+        //     $: [{
+        //       $class: 'org.sofa.SimpleObject',
+        //       $: testObject,
+        //     }],
+        //   }],
+        // };
+        const obj = {
+          $class: 'java.util.List',
+          generic: [{
+            type: 'java.lang.Object',
+          }],
+          $: [{
+            $class: 'org.sofa.SimpleObject',
+            $: testObject,
+          }],
+        };
+        // const obj = {
+        //   $class: 'java.lang.Object',
+        //   $: {
+        //     $class: 'java.util.List',
+        //     generic: 'java.lang.Object',
+        //     $: [{
+        //       $class: 'org.sofa.SimpleObject',
+        //       $: testObject,
+        //     }],
+        //   },
+        // };
+        const buf = encode(obj, version, classMap, appClassMap);
+        const res = hessian.decode(buf, version);
+        console.log(res);
+      });
+    });
   });
 });
