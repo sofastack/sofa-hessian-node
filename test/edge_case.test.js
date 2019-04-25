@@ -222,7 +222,7 @@ describe('test/edge_case.test.js', () => {
       assert.deepStrictEqual(res, { name: 'PRERELEASING' });
     });
 
-    describe.only('recursive compile', () => {
+    describe('recursive compile', () => {
       const appClassMap = {
         'org.sofa.SimpleObject': {
           size: {
@@ -252,12 +252,12 @@ describe('test/edge_case.test.js', () => {
             },
           },
         };
-        const buf = encode(obj, version, classMap, appClassMap);
+        const buf = encode(obj, version, appClassMap, appClassMap);
         const res = hessian.decode(buf, version);
         assert.deepStrictEqual(res, { depth1: { depth2: { size: 20 } } });
       });
 
-      it.only('should compile object', () => {
+      it('should compile object', () => {
         const testObject = {};
         Object.defineProperty(testObject, 'size', {
           value: 20,
