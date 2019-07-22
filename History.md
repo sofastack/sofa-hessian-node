@@ -1,4 +1,10 @@
 
+1.6.0 / 2019-07-22
+==================
+
+**features**
+  * [[`f97ea47`](http://github.com/sofastack/sofa-hessian-node/commit/f97ea47f3a896801a477fd776c49ac44f149cbc4)] - feat: support convert string to int (#20) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.5.1 / 2019-03-22
 ==================
 
