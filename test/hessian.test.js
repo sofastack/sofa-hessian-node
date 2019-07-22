@@ -756,6 +756,49 @@ describe('test/hessian.test.js', () => {
         assert.deepEqual(buf1, buf3);
       });
 
+      it('should try to convert string to number for int', () => {
+        const obj = {
+          $class: 'int',
+          $: '100',
+        };
+        const buf1 = hessian.encode({
+          $class: 'int',
+          $: 100,
+        }, version);
+        const buf2 = encode(obj, version, classMap, {}, options);
+        assert.deepEqual(buf1, buf2);
+
+        const buf3 = encode(obj, version, classMap, {}, options);
+        assert.deepEqual(buf1, buf3);
+      });
+
+      it('should try to convert string to number for java.lang.Integer', () => {
+        const obj = {
+          $class: 'java.lang.Integer',
+          $: '100',
+        };
+        const buf1 = hessian.encode({
+          $class: 'java.lang.Integer',
+          $: 100,
+        }, version);
+        const buf2 = encode(obj, version, classMap, {}, options);
+        assert.deepEqual(buf1, buf2);
+
+        const buf3 = encode(obj, version, classMap, {}, options);
+        assert.deepEqual(buf1, buf3);
+      });
+
+      it('should throw if converting string to number failed', () => {
+        const obj = {
+          $class: 'java.lang.Integer',
+          $: '',
+        };
+
+        assert.throws(() => {
+          encode(obj, version, classMap, {}, options);
+        }, /hessian writeInt expect input type is `int32`, but got `string` : ""/);
+      });
+
       describe('array', () => {
         it('should encode array', () => {
           const obj = {
