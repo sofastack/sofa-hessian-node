@@ -3,6 +3,7 @@
 const assert = require('assert');
 const encode = require('../').encode;
 const hessian = require('hessian.js-1');
+const sleep = require('mz-modules/sleep');
 const classMap = require('./fixtures/edge_class_map');
 
 describe('test/edge_case.test.js', () => {
@@ -220,6 +221,50 @@ describe('test/edge_case.test.js', () => {
       const buf = encode(obj, version, classMap);
       const res = hessian.decode(buf, version);
       assert.deepStrictEqual(res, { name: 'PRERELEASING' });
+    });
+
+    it('should support getter defaultValue', async () => {
+      const classMap = {
+        'com.test.TestClass': {
+          bizTime: {
+            type: 'java.util.Date',
+            get defaultValue() {
+              return new Date();
+            },
+          },
+          a: {
+            type: 'com.test.TestClass2',
+          },
+        },
+        'com.test.TestClass2': {
+          bizTime: {
+            type: 'java.util.Date',
+            get defaultValue() {
+              return new Date();
+            },
+          },
+        },
+      };
+      const obj = {
+        $class: 'com.test.TestClass',
+        $: { a: {} },
+      };
+      const buf1 = encode(obj, version, classMap);
+      const res1 = hessian.decode(buf1, version);
+      assert(res1.bizTime instanceof Date);
+      assert(res1.a && res1.a.bizTime instanceof Date);
+      console.log(res1);
+
+      await sleep(1000);
+
+      const buf2 = encode(obj, version, classMap);
+      const res2 = hessian.decode(buf2, version);
+      assert(res2.bizTime instanceof Date);
+      assert(res2.a && res2.a.bizTime instanceof Date);
+      console.log(res2);
+
+      assert(res2.bizTime.getTime() - res1.bizTime.getTime() >= 1000);
+      assert(res2.a.bizTime.getTime() - res1.a.bizTime.getTime() >= 1000);
     });
   });
 });

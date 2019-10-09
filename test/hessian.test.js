@@ -1,15 +1,15 @@
 'use strict';
 
+const path = require('path');
 const Long = require('long');
 const assert = require('assert');
 const java = require('js-to-java');
 const hessian = require('hessian.js-1');
 const encode = require('../').encode;
 const classMap = require('./fixtures/class_map');
-const mkdirp = require('mkdirp');
-const path = require('path');
+const mkdirp = require('mz-modules/mkdirp');
 const compile = require('../lib/compile');
-const rimraf = require('rimraf');
+const rimraf = require('mz-modules/rimraf');
 const fs = require('fs');
 const mm = require('mm');
 
