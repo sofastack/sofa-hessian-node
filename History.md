@@ -1,4 +1,10 @@
 
+1.6.1 / 2019-10-10
+==================
+
+**fixes**
+  * [[`a0c55c3`](http://github.com/sofastack/sofa-hessian-node/commit/a0c55c390141dd5f2b0d315abadb643848dcb2db)] - fix: support getter defaultValue (#21) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.6.0 / 2019-07-22
 ==================
 
