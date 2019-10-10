@@ -43,15 +43,14 @@
     "benchmark": "^2.1.4",
     "contributors": "^0.5.1",
     "egg-bin": "^4.13.0",
-    "egg-ci": "^1.12.0",
-    "enums": "^1.0.1",
-    "eslint": "^6.0.1",
-    "eslint-config-egg": "^7.4.1",
+    "egg-ci": "^1.13.0",
+    "enums": "^1.0.3",
+    "eslint": "^6.5.1",
+    "eslint-config-egg": "^7.5.1",
     "js-to-java": "^2.6.1",
     "long": "^4.0.0",
-    "mkdirp": "^0.5.1",
     "mm": "^2.5.0",
-    "rimraf": "^2.6.3"
+    "mz-modules": "^2.1.0"
   },
   "engines": {
     "node": ">= 8.0.0"

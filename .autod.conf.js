@@ -4,9 +4,7 @@ module.exports = {
   write: true,
   prefix: '^',
   devprefix: '^',
-  exclude: [
-    'test/fixtures',
-  ],
+  exclude: [],
   devdep: [
     'autod',
     'egg-bin',
