@@ -1,4 +1,10 @@
 
+1.6.2 / 2019-10-11
+==================
+
+**fixes**
+  * [[`80f9d8d`](http://github.com/sofastack/sofa-hessian-node/commit/80f9d8d355b28ea0aa4d7053a4c9a1eaf5a4f1e6)] - fix: only use defaultValue while user not set it (#22) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.6.1 / 2019-10-10
 ==================
 
