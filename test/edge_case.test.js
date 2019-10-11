@@ -265,6 +265,20 @@ describe('test/edge_case.test.js', () => {
 
       assert(res2.bizTime.getTime() - res1.bizTime.getTime() >= 1000);
       assert(res2.a.bizTime.getTime() - res1.a.bizTime.getTime() >= 1000);
+
+      const obj2 = {
+        $class: 'com.test.TestClass',
+        $: {
+          bizTime: null,
+          a: {
+            bizTime: null,
+          },
+        },
+      };
+      const buf3 = encode(obj2, version, classMap);
+      const res3 = hessian.decode(buf3, version);
+      assert(res3.bizTime == null);
+      assert(res3.a && res3.a.bizTime == null);
     });
   });
 });
