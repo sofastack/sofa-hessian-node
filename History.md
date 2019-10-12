@@ -1,4 +1,10 @@
 
+1.6.3 / 2019-10-12
+==================
+
+**fixes**
+  * [[`c74b48b`](http://github.com/sofastack/sofa-hessian-node/commit/c74b48b47ca67254958d3d6dd3f3f484a20186b7)] - fix: should use default val if prop val is undefined (#23) (killa <<killa123@126.com>>)
+
 1.6.2 / 2019-10-11
 ==================
 
