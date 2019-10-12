@@ -279,6 +279,19 @@ describe('test/edge_case.test.js', () => {
       const res3 = hessian.decode(buf3, version);
       assert(res3.bizTime == null);
       assert(res3.a && res3.a.bizTime == null);
+
+      const objUndefined = {
+        $class: 'com.test.TestClass',
+        $: {
+          bizTime: undefined,
+          a: {
+            bizTime: undefined,
+          },
+        },
+      };
+      const resUndefined = hessian.decode(encode(objUndefined, version, classMap), version);
+      assert(resUndefined.bizTime);
+      assert(resUndefined.a && resUndefined.a.bizTime);
     });
   });
 });
