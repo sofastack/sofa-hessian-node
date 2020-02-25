@@ -1244,6 +1244,235 @@ describe('test/hessian.test.js', () => {
         assert.deepEqual(buf1, buf3);
       });
 
+      it('should support nested and pass generic', () => {
+        const obj = {
+          $class: 'com.eggjs.dubbo.ComplexGenericParams',
+          $: {
+            useGenericIndex0: {
+              useGenericIndex0: 'String',
+              useGenericIndex1: [ 'String' ],
+              passGeneric: {
+                propertyIndex0: 'String',
+                propertyIndex1: 'String',
+              },
+            },
+            useGenericIndex1: [ 'String' ],
+            passGeneric: {
+              propertyIndex0: {
+                useGenericIndex0: 'String',
+                useGenericIndex1: [ 'String' ],
+                passGeneric: {
+                  propertyIndex0: 'String',
+                  propertyIndex1: 'String',
+                },
+              },
+              propertyIndex1: 'String',
+            },
+          },
+          generic: [{
+            type: 'com.eggjs.dubbo.ComplexGenericParams',
+            generic: [{
+              type: 'java.lang.String',
+            }, {
+              type: 'java.lang.String',
+            }],
+          }, {
+            type: 'java.lang.String',
+          }],
+        };
+
+        const buf1 = hessian.encode({
+          $class: 'com.eggjs.dubbo.ComplexGenericParams',
+          $: {
+            useGenericIndex0: {
+              $class: 'com.eggjs.dubbo.ComplexGenericParams',
+              $: {
+                useGenericIndex0: 'String',
+                useGenericIndex1: {
+                  $class: 'java.util.List',
+                  $: [ 'String' ],
+                },
+                passGeneric: {
+                  $class: 'com.eggjs.dubbo.PassGeneric',
+                  $: {
+                    propertyIndex0: 'String',
+                    propertyIndex1: 'String',
+                  },
+                },
+              },
+            },
+            useGenericIndex1: {
+              $class: 'java.util.List',
+              $: [ 'String' ],
+            },
+            passGeneric: {
+              $class: 'com.eggjs.dubbo.PassGeneric',
+              $: {
+                propertyIndex0: {
+                  $class: 'com.eggjs.dubbo.ComplexGenericParams',
+                  $: {
+                    useGenericIndex0: 'String',
+                    useGenericIndex1: {
+                      $class: 'java.util.List',
+                      $: [ 'String' ],
+                    },
+                    passGeneric: {
+                      $class: 'com.eggjs.dubbo.PassGeneric',
+                      $: {
+                        propertyIndex0: 'String',
+                        propertyIndex1: 'String',
+                      },
+                    },
+                  },
+                },
+                propertyIndex1: 'String',
+              },
+            },
+          },
+        }, version);
+
+        const buf2 = encode(obj, version, classMap, {}, options);
+        assert.deepEqual(buf1, buf2);
+
+        const buf3 = encode(obj, version, classMap, {}, options);
+        assert.deepEqual(buf1, buf3);
+      });
+
+      it('should support nested and complex pass generic case', () => {
+        const obj = {
+          $class: 'com.eggjs.dubbo.ComplexGenericParams',
+          $: {
+            useGenericIndex0: { // 'ComplexGenericParams<PassGeneric<Float, String>, Boolean>'
+              useGenericIndex0: { // PassGeneric<Float, String>
+                propertyIndex0: 1.11,
+                propertyIndex1: '1.1.2',
+              },
+              useGenericIndex1: [ true ],
+              passGeneric: {
+                propertyIndex0: { // PassGeneric<Float, String>
+                  propertyIndex0: 1.311,
+                  propertyIndex1: '1.3.1.2',
+                },
+                propertyIndex1: true,
+              },
+            },
+            useGenericIndex1: [ 2 ],
+            passGeneric: {
+              propertyIndex0: { // ComplexGenericParams<PassGeneric<Float, String>, Boolean>
+                useGenericIndex0: { // PassGeneric<Float, String>
+                  propertyIndex0: 3.111,
+                  propertyIndex1: '3.1.1.2',
+                },
+                useGenericIndex1: [ false ],
+                passGeneric: {
+                  propertyIndex0: { // PassGeneric<Float, String>
+                    propertyIndex0: 3.1311,
+                    propertyIndex1: '3.1.3.1.2',
+                  },
+                  propertyIndex1: false,
+                },
+              },
+              propertyIndex1: 32,
+            },
+          },
+          generic: [{
+            type: 'com.eggjs.dubbo.ComplexGenericParams',
+            generic: [{
+              type: 'com.eggjs.dubbo.PassGeneric',
+              generic: [{
+                type: 'java.lang.Float',
+              }, {
+                type: 'java.lang.String',
+              }],
+            }, {
+              type: 'java.lang.Boolean',
+            }],
+          }, {
+            type: 'java.lang.Integer',
+          }],
+        };
+
+        const buf1 = hessian.encode({
+          $class: 'com.eggjs.dubbo.ComplexGenericParams',
+          $: {
+            useGenericIndex0: { // 'ComplexGenericParams<PassGeneric<String, String>, String>'
+              $class: 'com.eggjs.dubbo.ComplexGenericParams',
+              $: {
+                useGenericIndex0: { // PassGeneric<String, String>
+                  $class: 'com.eggjs.dubbo.PassGeneric',
+                  $: {
+                    propertyIndex0: 1.11,
+                    propertyIndex1: '1.1.2',
+                  },
+                },
+                useGenericIndex1: {
+                  $class: 'java.util.List',
+                  $: [ true ],
+                },
+                passGeneric: {
+                  $class: 'com.eggjs.dubbo.PassGeneric',
+                  $: {
+                    propertyIndex0: { // PassGeneric<String, String>
+                      $class: 'com.eggjs.dubbo.PassGeneric',
+                      $: {
+                        propertyIndex0: 1.311,
+                        propertyIndex1: '1.3.1.2',
+                      },
+                    },
+                    propertyIndex1: true,
+                  },
+                },
+              },
+            },
+            useGenericIndex1: {
+              $class: 'java.util.List',
+              $: [ 2 ],
+            },
+            passGeneric: {
+              $class: 'com.eggjs.dubbo.PassGeneric',
+              $: {
+                propertyIndex0: { // ComplexGenericParams<PassGeneric<String, String>, String>
+                  $class: 'com.eggjs.dubbo.ComplexGenericParams',
+                  $: {
+                    useGenericIndex0: { // PassGeneric<String, String>
+                      $class: 'com.eggjs.dubbo.PassGeneric',
+                      $: {
+                        propertyIndex0: 3.111,
+                        propertyIndex1: '3.1.1.2',
+                      },
+                    },
+                    useGenericIndex1: {
+                      $class: 'java.util.List',
+                      $: [ false ],
+                    },
+                    passGeneric: {
+                      $class: 'com.eggjs.dubbo.PassGeneric',
+                      $: {
+                        propertyIndex0: { // PassGeneric<String, String>
+                          $class: 'com.eggjs.dubbo.PassGeneric',
+                          $: {
+                            propertyIndex0: 3.1311,
+                            propertyIndex1: '3.1.3.1.2',
+                          },
+                        },
+                        propertyIndex1: false,
+                      },
+                    },
+                  },
+                },
+                propertyIndex1: 32,
+              },
+            },
+          },
+        }, version);
+
+        const buf2 = encode(obj, version, classMap, {}, options);
+        assert.deepEqual(buf1, buf2);
+
+        const buf3 = encode(obj, version, classMap, {}, options);
+        assert.deepEqual(buf1, buf3);
+      });
+
       it('should class inheritance', () => {
         const obj = {
           $class: 'com.alipay.test.Father',
