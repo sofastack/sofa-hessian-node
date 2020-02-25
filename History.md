@@ -1,4 +1,10 @@
 
+1.7.0 / 2020-02-25
+==================
+
+**features**
+  * [[`536d240`](http://github.com/alipay/sofa-hessian-node/commit/536d2400e447f11e495c4dcc39038deafed68974)] - feat: support generic param pass case with typeVar=true, should parse the real type (#24) (mansonchor.github.com <<mansonchor@126.com>>)
+
 1.6.3 / 2019-10-12
 ==================
 
