@@ -39,6 +39,24 @@ module.exports = {
       ],
     },
   },
+  'org.sofa.ArrayGeneric': {
+    info: {
+      type: 'java.util.Map',
+      generic: [
+        { type: 'java.lang.String' },
+        { type: 'java.lang.String', isArray: true, },
+      ],
+    },
+  },
+  'org.sofa.NoArrayGeneric': {
+    info: {
+      type: 'java.util.Map',
+      generic: [
+        { type: 'java.lang.String' },
+        { type: 'java.lang.String' },
+      ],
+    },
+  },
 
   'org.sofa.TestObjectF': {
     enum: {

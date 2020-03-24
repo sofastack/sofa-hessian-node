@@ -293,5 +293,37 @@ describe('test/edge_case.test.js', () => {
       assert(resUndefined.bizTime);
       assert(resUndefined.a && resUndefined.a.bizTime);
     });
+
+    it('array generic type should work', () => {
+      const obj = {
+        $class: 'org.sofa.ArrayGeneric',
+        $: {
+          info: {
+            test: [ 'test' ],
+          },
+        },
+      };
+      const bufA = encode(obj, version, classMap);
+      assert.deepEqual(hessian.decode(bufA, version), {
+        info: {
+          test: [ 'test' ],
+        },
+      });
+
+      const obj2 = {
+        $class: 'org.sofa.NoArrayGeneric',
+        $: {
+          info: {
+            test: 'test',
+          },
+        },
+      };
+      const bufB = encode(obj2, version, classMap);
+      assert.deepEqual(hessian.decode(bufB, version), {
+        info: {
+          test: 'test',
+        },
+      });
+    });
   });
 });
