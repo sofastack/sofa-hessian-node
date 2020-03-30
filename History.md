@@ -1,4 +1,11 @@
 
+1.7.1 / 2020-03-30
+==================
+
+**fixes**
+  * [[`5bf7db4`](http://github.com/sofastack/sofa-hessian-node/commit/5bf7db4cdb26f2a092b71e3649e955b59293689f)] - fix: fix some generic case (#26) (killa <<killa123@126.com>>)
+  * [[`7a46513`](http://github.com/sofastack/sofa-hessian-node/commit/7a4651303702610d3f2e372d56b3b52357e6441e)] - fix: fix array generic type should start with [ (#25) (killa <<killa123@126.com>>)
+
 1.7.0 / 2020-02-25
 ==================
 
