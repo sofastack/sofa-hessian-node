@@ -1473,6 +1473,145 @@ describe('test/hessian.test.js', () => {
         assert.deepEqual(buf1, buf3);
       });
 
+      it('should support generic type is array', () => {
+        const obj = {
+          $class: 'com.eggjs.dubbo.PassGeneric',
+          $: {
+            propertyIndex0: [ 'hello1', 'hello2' ],
+            propertyIndex1: 'hello',
+          },
+          generic: [{
+            isArray: true,
+            type: 'java.lang.String',
+          }, {
+            type: 'java.lang.String',
+          }],
+        };
+        const bufA = encode(obj, version, classMap);
+        const obj2 = hessian.decode(bufA, version);
+        assert.deepStrictEqual(obj2, {
+          propertyIndex0: [ 'hello1', 'hello2' ],
+          propertyIndex1: 'hello',
+        });
+      });
+
+      it('should support generic type is array and depth is 2', () => {
+        const obj = {
+          $class: 'com.eggjs.dubbo.PassGeneric',
+          $: {
+            propertyIndex0: [[ 'hello1' ]],
+            propertyIndex1: 'hello',
+          },
+          generic: [{
+            isArray: true,
+            arrayDepth: 2,
+            type: 'java.lang.String',
+          }, {
+            type: 'java.lang.String',
+          }],
+        };
+        const bufA = encode(obj, version, classMap);
+        const obj2 = hessian.decode(bufA, version);
+        assert.deepStrictEqual(obj2, {
+          propertyIndex0: [[ 'hello1' ]],
+          propertyIndex1: 'hello',
+        });
+      });
+
+      it('should support pass generic type is Enum', () => {
+        const obj = {
+          $class: 'com.eggjs.dubbo.ComplexGenericParams',
+          $: {
+            useGenericIndex1: [ 'ENUM_KEY' ],
+          },
+          generic: [{
+            type: 'java.lang.String',
+          }, {
+            isEnum: true,
+            type: 'com.sofa.OneEnum',
+          }],
+        };
+
+        const buf1 = encode(obj, version, classMap, {}, options);
+        const obj2 = hessian.decode(buf1, version);
+        assert.deepStrictEqual(obj2, {
+          useGenericIndex0: null,
+          useGenericIndex1: [{ name: 'ENUM_KEY' }],
+          passGeneric: null,
+        });
+      });
+
+      it('should support pass generic type is Array', () => {
+        const obj = {
+          $class: 'com.eggjs.dubbo.ComplexGenericParams',
+          $: {
+            useGenericIndex1: [[ 'STR_VAL' ]],
+          },
+          generic: [{
+            type: 'java.lang.String',
+          }, {
+            isArray: true,
+            type: 'java.lang.String',
+          }],
+        };
+
+        const buf1 = encode(obj, version, classMap, {}, options);
+        const obj2 = hessian.decode(buf1, version);
+        assert.deepStrictEqual(obj2, {
+          useGenericIndex0: null,
+          useGenericIndex1: [[ 'STR_VAL' ]],
+          passGeneric: null,
+        });
+      });
+
+      it('should support pass generic type is Enum and Array', () => {
+        const obj = {
+          $class: 'com.eggjs.dubbo.ComplexGenericParams',
+          $: {
+            useGenericIndex1: [[ 'ENUM_KEY' ]],
+          },
+          generic: [{
+            type: 'java.lang.String',
+          }, {
+            isArray: true,
+            isEnum: true,
+            type: 'com.sofa.OneEnum',
+          }],
+        };
+
+        const buf1 = encode(obj, version, classMap, {}, options);
+        const obj2 = hessian.decode(buf1, version);
+        assert.deepStrictEqual(obj2, {
+          useGenericIndex0: null,
+          useGenericIndex1: [[{ name: 'ENUM_KEY' }]],
+          passGeneric: null,
+        });
+      });
+
+      it('should support pass generic type is Array and has depth', () => {
+        const obj = {
+          $class: 'com.eggjs.dubbo.ComplexGenericParams',
+          $: {
+            useGenericIndex1: [[[ 'STR_VAL' ]]],
+          },
+          generic: [{
+            type: 'java.lang.String',
+          }, {
+            isArray: true,
+            arrayDepth: 2,
+            type: 'java.lang.String',
+          }],
+        };
+
+        const buf1 = encode(obj, version, classMap, {}, options);
+        const obj2 = hessian.decode(buf1, version);
+        assert.deepStrictEqual(obj2, {
+          useGenericIndex0: null,
+          useGenericIndex1: [[[ 'STR_VAL' ]]],
+          passGeneric: null,
+        });
+      });
+
       it('should class inheritance', () => {
         const obj = {
           $class: 'com.alipay.test.Father',
