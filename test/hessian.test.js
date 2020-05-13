@@ -23,7 +23,7 @@ describe('test/hessian.test.js', () => {
   ];
 
   afterEach(() => {
-    compile.cache.clear();
+    compile.getCache().clear();
     mm.restore();
   });
 
