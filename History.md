@@ -1,4 +1,10 @@
 
+1.8.0 / 2020-05-13
+==================
+
+**features**
+  * [[`24888e2`](http://github.com/sofastack/sofa-hessian-node/commit/24888e2d3202a4eb9c9be40ebf8553656bd6180b)] - feat: export compile cache set function (#27) (mansonchor.github.com <<mansonchor@126.com>>)
+
 1.7.1 / 2020-03-30
 ==================
 
