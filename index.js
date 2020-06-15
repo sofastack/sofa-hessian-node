@@ -1,19 +1,11 @@
 'use strict';
 
-const compile = require('./lib/compile');
+const v3 = require('./lib/v3');
+const v4 = require('./lib/v4');
 
-const encoderV1 = require('hessian.js-1').encoderV1;
-const encoderV2 = require('hessian.js-1').encoderV2;
+exports.v3 = v3;
+exports.v4 = v4;
 
-exports.encode = (obj, version, classMap, appClassMap, options) => {
-  const encoder = version === '2.0' ? encoderV2 : encoderV1;
-  encoder.reset();
-  if (classMap) {
-    compile(obj, version, classMap, options)(obj.$, encoder, appClassMap);
-  } else {
-    encoder.write(obj);
-  }
-  return encoder.get();
-};
-exports.decode = require('hessian.js-1').decode;
-exports.compile = compile;
+exports.encode = v3.encode;
+exports.decode = v3.decode;
+exports.compile = v3.compile;
