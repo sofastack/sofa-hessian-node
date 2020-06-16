@@ -1,4 +1,10 @@
 
+2.0.0 / 2020-06-16
+==================
+
+**features**
+  * [[`8f12c8b`](http://github.com/sofastack/sofa-hessian-node/commit/8f12c8bdaac78d3cde26c1530c9357d07612493f)] - feat: support hessian 4 (#28) (zōng yǔ <<gxcsoccer@users.noreply.github.com>>)
+
 1.8.0 / 2020-05-13
 ==================
 
