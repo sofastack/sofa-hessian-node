@@ -34,28 +34,29 @@
   "homepage": "https://github.com/alipay/sofa-hessian-node#readme",
   "dependencies": {
     "@protobufjs/codegen": "^2.0.4",
-    "hessian.js-1": "^1.9.0",
-    "utility": "^1.16.1"
+    "hessian.js": "^2.10.0",
+    "hessian.js-1": "^1.9.1",
+    "utility": "^1.16.3"
   },
   "devDependencies": {
     "autod": "^3.1.0",
     "beautify-benchmark": "^0.2.4",
     "benchmark": "^2.1.4",
     "contributors": "^0.5.1",
-    "egg-bin": "^4.13.0",
-    "egg-ci": "^1.13.0",
+    "egg-bin": "^4.14.1",
+    "egg-ci": "^1.15.0",
     "enums": "^1.0.3",
-    "eslint": "^6.5.1",
-    "eslint-config-egg": "^7.5.1",
+    "eslint": "^7.2.0",
+    "eslint-config-egg": "^8.0.1",
     "js-to-java": "^2.6.1",
     "long": "^4.0.0",
-    "mm": "^2.5.0",
+    "mm": "^3.2.0",
     "mz-modules": "^2.1.0"
   },
   "engines": {
-    "node": ">= 8.0.0"
+    "node": ">= 10.0.0"
   },
   "ci": {
-    "version": "8, 10, 12"
+    "version": "10, 12, 14"
   }
 }

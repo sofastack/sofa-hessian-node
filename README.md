@@ -66,6 +66,19 @@ console.log(buf.toString('hex'));
 // 4fac636f6d2e616c697061792e746573742e7375622e546573744f626a3292046e616d650a66696e616c4669656c646f9009677863736f6363657203787878
 ```
 
+## hessian 4 支持
+
+```js
+const { v4 } = require('sofa-hessian-node');
+
+const buf = v4.encode({
+  $class: 'com.alipay.test.sub.TestObj2',
+  $: { name: 'gxcsoccer' },
+}, '2.0', classMap);
+
+console.log(buf.toString('hex'));
+```
+
 ## 性能数据
 
 从 [benchmark](benchmark/index.js) 看，相比于直接使用 hessian.js-1，sofa-hessian-node 性能有非常明显的提高（特别是针对复杂对象的场景）
