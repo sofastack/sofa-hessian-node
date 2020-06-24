@@ -34,13 +34,14 @@ describe('test/compile.test.js', () => {
   });
 
   it('should compile compileCache work', () => {
+
     try {
       encode({
         $class: 'java.util.Map',
         $: { foo: 'bar' },
         isMap: true,
       }, '2.0', {
-        compileCache: {
+        $compileCache: {
           get() {
             throw new Error('mock error');
           },
