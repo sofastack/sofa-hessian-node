@@ -32,4 +32,24 @@ describe('test/compile.test.js', () => {
     // recover
     compile.setCache(new Map());
   });
+
+  it('should compile compileCache work', () => {
+    try {
+      encode({
+        $class: 'java.util.Map',
+        $: { foo: 'bar' },
+        isMap: true,
+      }, '2.0', {
+        compileCache: {
+          get() {
+            throw new Error('mock error');
+          },
+          set() {},
+        },
+      }, {}, {});
+      assert(false, 'never here');
+    } catch (err) {
+      assert(err.message === 'mock error');
+    }
+  });
 });
