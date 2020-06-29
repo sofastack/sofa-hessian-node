@@ -15,25 +15,42 @@ describe('test/compile.test.js', () => {
   });
 
   it('should compile setCache work', () => {
-    const classMap = {};
     const cacheObj = { get: () => { throw new Error('mock error'); }, set: () => {} };
-    const weakCache = new WeakMap();
-
-    weakCache.set(classMap, cacheObj);
-    compile.setCache(weakCache);
+    compile.setCache(cacheObj);
 
     try {
       encode({
         $class: 'java.util.Map',
         $: { foo: 'bar' },
         isMap: true,
-      }, '2.0', classMap, {}, {});
+      }, '2.0', {}, {}, {});
       assert(false, 'never here');
     } catch (err) {
       assert(err.message === 'mock error');
     }
 
     // recover
-    compile.setCache(new WeakMap());
+    compile.setCache(new Map());
+  });
+
+  it('should compile compileCache work', () => {
+
+    try {
+      encode({
+        $class: 'java.util.Map',
+        $: { foo: 'bar' },
+        isMap: true,
+      }, '2.0', {
+        $compileCache: {
+          get() {
+            throw new Error('mock error');
+          },
+          set() {},
+        },
+      }, {}, {});
+      assert(false, 'never here');
+    } catch (err) {
+      assert(err.message === 'mock error');
+    }
   });
 });

@@ -34,7 +34,7 @@ describe('test/hessian.test.js', () => {
       ];
 
       afterEach(() => {
-        compile.setCache(new WeakMap());
+        compile.getCache().clear();
         mm.restore();
       });
 
@@ -47,17 +47,16 @@ describe('test/hessian.test.js', () => {
           });
 
           it('should encode java.util.Map without generic', () => {
-            const classMap = {};
             const obj = {
               $class: 'java.util.Map',
               $: { foo: 'bar' },
               isMap: true,
             };
             const buf1 = hessian.encode({ $class: 'java.util.Map', $: { foo: 'bar' } }, version);
-            const buf2 = encode(obj, version, classMap, {}, options);
+            const buf2 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf2);
 
-            const buf3 = encode(obj, version, classMap, {}, options);
+            const buf3 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf3);
 
             const map = new Map();
@@ -67,15 +66,14 @@ describe('test/hessian.test.js', () => {
               $class: 'java.util.Map',
               $: { foo: { $class: 'java.lang.String', $: 'bar' } },
             }, version);
-            const buf5 = encode(obj, version, classMap, {}, options);
+            const buf5 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf4, buf5);
 
-            const buf6 = encode(obj, version, classMap, {}, options);
+            const buf6 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf4, buf6);
           });
 
           it('should encode java.util.Map with generic', () => {
-            const classMap = {};
             const map = new Map();
             map.set(1, 'xxx');
             const obj = {
@@ -95,23 +93,22 @@ describe('test/hessian.test.js', () => {
             converted.$.set({ $class: 'java.lang.Integer', $: 1 }, { $class: 'java.lang.String', $: 'xxx' });
 
             const buf1 = hessian.encode(converted, version);
-            const buf2 = encode(obj, version, classMap, {}, options);
+            const buf2 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf2);
 
-            const buf3 = encode(obj, version, classMap, {}, options);
+            const buf3 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf3);
 
             obj.$ = { 1: 'xxx' };
             const buf4 = hessian.encode(converted, version);
-            const buf5 = encode(obj, version, classMap, {}, options);
+            const buf5 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf4, buf5);
 
-            const buf6 = encode(obj, version, classMap, {}, options);
+            const buf6 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf4, buf6);
           });
 
           it('should encode java.util.List with generic', () => {
-            const classMap = {};
             const obj = {
               $class: 'java.util.List',
               $: [ 'foo', 'bar' ],
@@ -125,29 +122,27 @@ describe('test/hessian.test.js', () => {
                 { $class: 'java.lang.String', $: 'bar' },
               ],
             }, version, {}, {}, options);
-            const buf2 = encode(obj, version, classMap, {}, options);
+            const buf2 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf2);
 
-            const buf3 = encode(obj, version, classMap, {}, options);
+            const buf3 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf3);
           });
 
           it('should encode java.util.List without generic', () => {
-            const classMap = {};
             const obj = {
               $class: 'java.util.List',
               $: [ 'foo', 'bar' ],
             };
             const buf1 = hessian.encode({ $class: 'java.util.List', $: [ 'foo', 'bar' ] }, version);
-            const buf2 = encode(obj, version, classMap, {}, options);
+            const buf2 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf2);
 
-            const buf3 = encode(obj, version, classMap, {}, options);
+            const buf3 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf3);
           });
 
           it('should encode java.util.ArrayList with generic', () => {
-            const classMap = {};
             const obj = {
               $class: 'java.util.ArrayList',
               $: [ 'foo', 'bar' ],
@@ -160,29 +155,27 @@ describe('test/hessian.test.js', () => {
               $: [ 'foo', 'bar' ],
               generic: [ 'java.lang.String' ],
             }, version);
-            const buf2 = encode(obj, version, classMap, {}, options);
+            const buf2 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf2);
 
-            const buf3 = encode(obj, version, classMap, {}, options);
+            const buf3 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf3);
           });
 
           it('should encode java.util.ArrayList without generic', () => {
-            const classMap = {};
             const obj = {
               $class: 'java.util.ArrayList',
               $: [ 'foo', 'bar' ],
             };
             const buf1 = hessian.encode({ $class: 'java.util.ArrayList', $: [ 'foo', 'bar' ] }, version);
-            const buf2 = encode(obj, version, classMap, {}, options);
+            const buf2 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf2);
 
-            const buf3 = encode(obj, version, classMap, {}, options);
+            const buf3 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf3);
           });
 
           it('should encode java.util.Set with generic', () => {
-            const classMap = {};
             const obj = {
               $class: 'java.util.Set',
               $: [ 'foo', 'bar' ],
@@ -196,29 +189,27 @@ describe('test/hessian.test.js', () => {
                 { $class: 'java.lang.String', $: 'bar' },
               ],
             }, version);
-            const buf2 = encode(obj, version, classMap, {}, options);
+            const buf2 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf2);
 
-            const buf3 = encode(obj, version, classMap, {}, options);
+            const buf3 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf3);
           });
 
           it('should encode java.util.Set without generic', () => {
-            const classMap = {};
             const obj = {
               $class: 'java.util.Set',
               $: [ 'foo', 'bar' ],
             };
             const buf1 = hessian.encode({ $class: 'java.util.Set', $: [ 'foo', 'bar' ] }, version);
-            const buf2 = encode(obj, version, classMap, {}, options);
+            const buf2 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf2);
 
-            const buf3 = encode(obj, version, classMap, {}, options);
+            const buf3 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf3);
           });
 
           it('should encode enum with old name', () => {
-            const classMap = {};
             const obj = {
               $class: 'com.test.model.datum.DatumStaus',
               $: {
@@ -236,15 +227,14 @@ describe('test/hessian.test.js', () => {
               $class: 'com.test.model.datum.DatumStaus',
               $: { name: 'PRERELEASING' },
             }, version);
-            const buf2 = encode(obj, version, classMap, {}, options);
+            const buf2 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf2);
 
-            const buf3 = encode(obj, version, classMap, {}, options);
+            const buf3 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf3);
           });
 
           it('should encode enum new $name', () => {
-            const classMap = {};
             const obj = {
               $class: 'com.test.model.datum.DatumStaus',
               $: {
@@ -263,10 +253,10 @@ describe('test/hessian.test.js', () => {
               $class: 'com.test.model.datum.DatumStaus',
               $: { name: 'PRERELEASING' },
             }, version);
-            const buf2 = encode(obj, version, classMap, {}, options);
+            const buf2 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf2);
 
-            const buf3 = encode(obj, version, classMap, {}, options);
+            const buf3 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf3);
           });
 
@@ -708,7 +698,6 @@ describe('test/hessian.test.js', () => {
           });
 
           it('should encode java.lang.Exception', () => {
-            const classMap = {};
             const err = new Error('mock');
             const buf1 = hessian.encode(java.exception(err), version);
             const buf2 = encode({
@@ -720,10 +709,10 @@ describe('test/hessian.test.js', () => {
             const buf3 = encode({
               $class: 'java.lang.Exception',
               $: err,
-            }, version, classMap, {}, options);
+            }, version, {}, {}, options);
             assert.deepEqual(buf1, buf3);
 
-            const buf4 = encode(java.exception(err), version, classMap, {}, options);
+            const buf4 = encode(java.exception(err), version, {}, {}, options);
             assert.deepEqual(buf1, buf4);
           });
 
@@ -823,22 +812,20 @@ describe('test/hessian.test.js', () => {
 
           describe('array', () => {
             it('should encode array', () => {
-              const classMap = {};
               const obj = {
                 $class: 'int',
                 $: [ 1, 2, 3 ],
                 isArray: true,
               };
               const buf1 = hessian.encode({ $class: '[int', $: [{ $class: 'int', $: 1 }, { $class: 'int', $: 2 }, { $class: 'int', $: 3 }] }, version);
-              const buf2 = encode(obj, version, classMap, {}, options);
+              const buf2 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf2);
 
-              const buf3 = encode(obj, version, classMap, {}, options);
+              const buf3 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf3);
             });
 
             it('should encode multi-dimentional array', () => {
-              const classMap = {};
               const obj = {
                 $class: 'java.lang.String',
                 $: [
@@ -858,15 +845,14 @@ describe('test/hessian.test.js', () => {
                   ],
                 }],
               }, version);
-              const buf2 = encode(obj, version, classMap, {}, options);
+              const buf2 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf2);
 
-              const buf3 = encode(obj, version, classMap, {}, options);
+              const buf3 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf3);
             });
 
             it('should encode java.lang.Class array', () => {
-              const classMap = {};
               const obj = {
                 $class: 'java.lang.Class',
                 $: [{
@@ -887,15 +873,14 @@ describe('test/hessian.test.js', () => {
                   $: { name: '[Ljava.lang.String;' },
                 }],
               }, version);
-              const buf2 = encode(obj, version, classMap, {}, options);
+              const buf2 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf2);
 
-              const buf3 = encode(obj, version, classMap, {}, options);
+              const buf3 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf3);
             });
 
             it('should encode java.util.Locale array', () => {
-              const classMap = {};
               const obj = {
                 $class: 'java.util.Locale',
                 $: [
@@ -911,15 +896,14 @@ describe('test/hessian.test.js', () => {
                   { $class: 'com.caucho.hessian.io.LocaleHandle', $: { value: 'en_US' } },
                 ],
               }, version);
-              const buf2 = encode(obj, version, classMap, {}, options);
+              const buf2 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf2);
 
-              const buf3 = encode(obj, version, classMap, {}, options);
+              const buf3 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf3);
             });
 
             it('should encode java.math.BigDecimal array', () => {
-              const classMap = {};
               const obj = {
                 $class: 'java.math.BigDecimal',
                 $: [
@@ -929,15 +913,14 @@ describe('test/hessian.test.js', () => {
                 isArray: true,
               };
               const buf1 = hessian.encode(java.array.BigDecimal(obj.$), version);
-              const buf2 = encode(obj, version, classMap, {}, options);
+              const buf2 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf2);
 
-              const buf3 = encode(obj, version, classMap, {}, options);
+              const buf3 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf3);
             });
 
             it('should encode java.util.Currency array', () => {
-              const classMap = {};
               const obj = {
                 $class: 'java.util.Currency',
                 $: [
@@ -953,40 +936,38 @@ describe('test/hessian.test.js', () => {
                   { $class: 'java.util.Currency', $: { currencyCode: 'USD' } },
                 ],
               }, version);
-              const buf2 = encode(obj, version, classMap, {}, options);
+              const buf2 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf2);
 
-              const buf3 = encode(obj, version, classMap, {}, options);
+              const buf3 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf3);
             });
 
             it('should encode byte array', () => {
-              const classMap = {};
               const obj = {
                 $class: 'byte',
                 $: Buffer.from('hello world'),
                 isArray: true,
               };
               const buf1 = hessian.encode(Buffer.from('hello world'), version);
-              const buf2 = encode(obj, version, classMap, {}, options);
+              const buf2 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf2);
 
-              const buf3 = encode(obj, version, classMap, {}, options);
+              const buf3 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf3);
             });
 
             it('should encode java.lang.Byte array', () => {
-              const classMap = {};
               const obj = {
                 $class: 'java.lang.Byte',
                 $: Buffer.from('hello world'),
                 isArray: true,
               };
               const buf1 = hessian.encode(Buffer.from('hello world'), version);
-              const buf2 = encode(obj, version, classMap, {}, options);
+              const buf2 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf2);
 
-              const buf3 = encode(obj, version, classMap, {}, options);
+              const buf3 = encode(obj, version, {}, {}, options);
               assert.deepEqual(buf1, buf3);
             });
           });
@@ -1034,7 +1015,6 @@ describe('test/hessian.test.js', () => {
           });
 
           it('should support java.util.concurrent.atomic.AtomicLong', () => {
-            const classMap = {};
             const obj = {
               $class: 'java.util.concurrent.atomic.AtomicLong',
               $: '100',
@@ -1048,15 +1028,14 @@ describe('test/hessian.test.js', () => {
                 },
               },
             }, version);
-            const buf2 = encode(obj, version, classMap, {}, options);
+            const buf2 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf2);
 
-            const buf3 = encode(obj, version, classMap, {}, options);
+            const buf3 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf3);
           });
 
           it('should support java.util.concurrent.atomic.AtomicLong 2', () => {
-            const classMap = {};
             const obj = {
               $class: 'java.util.concurrent.atomic.AtomicLong',
               $: {
@@ -1072,15 +1051,14 @@ describe('test/hessian.test.js', () => {
                 },
               },
             }, version);
-            const buf2 = encode(obj, version, classMap, {}, options);
+            const buf2 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf2);
 
-            const buf3 = encode(obj, version, classMap, {}, options);
+            const buf3 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf3);
           });
 
           it('should support java.util.concurrent.atomic.AtomicLong 3', () => {
-            const classMap = {};
             const obj = {
               $class: 'java.util.concurrent.atomic.AtomicLong',
               $: {
@@ -1099,10 +1077,10 @@ describe('test/hessian.test.js', () => {
                 },
               },
             }, version);
-            const buf2 = encode(obj, version, classMap, {}, options);
+            const buf2 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf2);
 
-            const buf3 = encode(obj, version, classMap, {}, options);
+            const buf3 = encode(obj, version, {}, {}, options);
             assert.deepEqual(buf1, buf3);
           });
 
@@ -1731,6 +1709,7 @@ describe('test/hessian.test.js', () => {
                   type: 'java.lang.String',
                 },
               },
+              $compileCache: new Map(),
             };
             const bufHessain1 = hessian.encode({
               $class: 'com.sofa.TestObject',
@@ -1785,6 +1764,7 @@ describe('test/hessian.test.js', () => {
                   type: 'java.lang.String',
                 },
               },
+              $compileCache: new Map(),
             };
             const bufHessain2 = hessian.encode({
               $class: 'com.sofa.TestObject',
