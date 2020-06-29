@@ -1690,9 +1690,10 @@ describe('test/hessian.test.js', () => {
           });
 
           it('should compile class different version work', () => {
+            compile.setCache(new Map([[ compile.classMapCacheOn, true ]]));
             const compileOptions = {
               ...options,
-              debug: false, // com.sofa.TestObject生成的debug文件更新后，再次require会有缓存，是有利这里关闭debug
+              debug: false, // com.sofa.TestObject生成的debug文件更新后，再次require会有缓存，所以这里关闭debug
             };
             // com.sofa.TestObject 版本1
             const classMap1 = {
@@ -1709,7 +1710,6 @@ describe('test/hessian.test.js', () => {
                   type: 'java.lang.String',
                 },
               },
-              $compileCache: new Map(),
             };
             const bufHessain1 = hessian.encode({
               $class: 'com.sofa.TestObject',
@@ -1764,7 +1764,6 @@ describe('test/hessian.test.js', () => {
                   type: 'java.lang.String',
                 },
               },
-              $compileCache: new Map(),
             };
             const bufHessain2 = hessian.encode({
               $class: 'com.sofa.TestObject',
@@ -1802,6 +1801,7 @@ describe('test/hessian.test.js', () => {
 
             assert.deepEqual(bufHessain2, buf21);
             assert.deepEqual(buf21, buf22);
+            compile.setCache(new Map());
           });
         });
       });

@@ -33,24 +33,22 @@ describe('test/compile.test.js', () => {
     compile.setCache(new Map());
   });
 
-  it('should compile compileCache work', () => {
+  it('should compile setCache WeakMap work', () => {
+    const classMap = {};
+    const cacheObj = { get: () => { throw new Error('mock error'); }, set: () => {} };
+    compile.setCache(new Map([[ compile.classMapCacheOn, true ], [ classMap, cacheObj ]]));
 
     try {
       encode({
         $class: 'java.util.Map',
         $: { foo: 'bar' },
         isMap: true,
-      }, '2.0', {
-        $compileCache: {
-          get() {
-            throw new Error('mock error');
-          },
-          set() {},
-        },
-      }, {}, {});
+      }, '2.0', classMap, {}, {});
       assert(false, 'never here');
     } catch (err) {
       assert(err.message === 'mock error');
     }
+    // recover
+    compile.setCache(new Map());
   });
 });
