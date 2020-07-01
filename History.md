@@ -1,4 +1,10 @@
 
+2.1.0 / 2020-07-01
+==================
+
+**features**
+  * [[`bd303c7`](http://github.com/sofastack/sofa-hessian-node/commit/bd303c74f4d23def37936a8f617747f5344b53a7)] - feat: every classMap will has own compileCache (#30) (陈峰 <<348018533@qq.com>>)
+
 2.0.0 / 2020-06-16
 ==================
 
