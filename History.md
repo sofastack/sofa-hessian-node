@@ -1,4 +1,10 @@
 
+1.8.1 / 2020-09-21
+==================
+
+**fixes**
+  * [[`ac0f345`](http://github.com/sofastack/sofa-hessian-node/commit/ac0f3452534a4ffe2b81598e94f87ec75da68ce2)] - fix: fix set encode (#31) (killa <<killa123@126.com>>)
+
 1.8.0 / 2020-05-13
 ==================
 

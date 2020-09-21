@@ -1,6 +1,6 @@
 {
   "name": "sofa-hessian-node",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "An internal improved version of Hessian powered by Ant Financial.",
   "main": "index.js",
   "files": [
@@ -54,6 +54,9 @@
   },
   "engines": {
     "node": ">= 8.0.0"
+  },
+  "publishConfig": {
+    "tag": "latest-1"
   },
   "ci": {
     "version": "8, 10, 12"
