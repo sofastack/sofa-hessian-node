@@ -380,5 +380,19 @@ describe('test/edge_case.test.js', () => {
         },
       });
     });
+
+    it('should work with set', () => {
+      const a = {
+        $class: 'com.test.foo.SetProperty',
+        $: {
+          setProperty: new Set([ 233, 23333 ]),
+        },
+      };
+      const bufA = encode(a, version, classMap);
+      const decodeObj = hessian.decode(bufA, version);
+      assert.deepStrictEqual(decodeObj, {
+        setProperty: [ '233', '23333' ],
+      });
+    });
   });
 });
