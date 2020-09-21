@@ -160,4 +160,14 @@ module.exports = {
   'com.test.model.datum.DatumStaus2': new Enums([
     { $name: 'PRERELEASING', name: 'TEST_NAME' },
   ]),
+
+  'com.test.foo.SetProperty': {
+    'setProperty': {
+      'type': 'java.util.Set',
+      'abstractClass': 'java.util.Set',
+      'generic': [
+        {'type':'java.lang.String'},
+      ]
+    },
+  },
 };
