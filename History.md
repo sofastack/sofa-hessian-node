@@ -1,4 +1,10 @@
 
+1.8.2 / 2020-10-29
+==================
+
+**others**
+  * [[`ee461a9`](http://github.com/sofastack/sofa-hessian-node/commit/ee461a9aeff69e9dfcba204c82e977b34efccc36)] - opt: pre read debug env before compile (#32) (killa <<killa123@126.com>>)
+
 1.8.1 / 2020-09-21
 ==================
 
