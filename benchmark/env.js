@@ -5,7 +5,6 @@ const benchmarks = require('beautify-benchmark');
 const suite = new Benchmark.Suite();
 
 const HESSIAN_COMPILE_DEBUG = process.env.HESSIAN_COMPILE_DEBUG;
-// eslint-disable-next-line no-unused-vars
 let envVal;
 // add tests
 suite
