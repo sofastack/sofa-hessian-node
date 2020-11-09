@@ -5,22 +5,30 @@ const Long = require('long');
 const assert = require('assert');
 const java = require('js-to-java');
 const hessian = require('hessian.js-1');
-const encode = require('../').encode;
 const classMap = require('./fixtures/class_map');
 const mkdirp = require('mz-modules/mkdirp');
-const compile = require('../lib/compile');
 const rimraf = require('mz-modules/rimraf');
 const fs = require('fs');
 const mm = require('mm');
 
 describe('test/hessian.test.js', () => {
   let dir;
+  let compile;
+  let encode;
+
   const versions = [
     { version: '1.0', options: { debug: false } },
     { version: '1.0', options: { debug: true } },
     { version: '2.0', options: { debug: false } },
     { version: '2.0', options: { debug: true } },
   ];
+
+  beforeEach(() => {
+    delete require.cache[require.resolve('../lib/compile')];
+    compile = require('../lib/compile');
+    delete require.cache[require.resolve('../')];
+    encode = require('../').encode;
+  });
 
   afterEach(() => {
     compile.getCache().clear();
