@@ -5,22 +5,30 @@ const Long = require('long');
 const assert = require('assert');
 const java = require('js-to-java');
 const hessian = require('hessian.js-1');
-const encode = require('../').encode;
 const classMap = require('./fixtures/class_map');
 const mkdirp = require('mz-modules/mkdirp');
-const compile = require('../lib/compile');
 const rimraf = require('mz-modules/rimraf');
 const fs = require('fs');
 const mm = require('mm');
 
 describe('test/hessian.test.js', () => {
   let dir;
+  let compile;
+  let encode;
+
   const versions = [
     { version: '1.0', options: { debug: false } },
     { version: '1.0', options: { debug: true } },
     { version: '2.0', options: { debug: false } },
     { version: '2.0', options: { debug: true } },
   ];
+
+  beforeEach(() => {
+    delete require.cache[require.resolve('../lib/compile')];
+    compile = require('../lib/compile');
+    delete require.cache[require.resolve('../')];
+    encode = require('../').encode;
+  });
 
   afterEach(() => {
     compile.getCache().clear();
@@ -1656,6 +1664,121 @@ describe('test/hessian.test.js', () => {
           $: {},
         }, version, classMap, {}, options);
         assert.deepEqual(buf1, buf2);
+      });
+
+      it('should compile class different version work', () => {
+        compile.setCache(new Map([[ compile.classMapCacheOn, true ]]));
+        const compileOptions = {
+          ...options,
+          debug: false, // com.sofa.TestObject生成的debug文件更新后，再次require会有缓存，所以这里关闭debug
+        };
+        // com.sofa.TestObject 版本1
+        const classMap1 = {
+          'com.sofa.TestObject': {
+            field1: {
+              type: 'java.lang.String',
+            },
+            field2: {
+              type: 'com.sofa.TestObjectChild1',
+            },
+          },
+          'com.sofa.TestObjectChild1': {
+            field1: {
+              type: 'java.lang.String',
+            },
+          },
+        };
+        const bufHessain1 = hessian.encode({
+          $class: 'com.sofa.TestObject',
+          $: {
+            field1: 'foo',
+            field2: {
+              $class: 'com.sofa.TestObjectChild1',
+              $: {
+                field1: 'foo',
+              },
+            },
+          },
+        }, version);
+        const buf11 = encode({
+          $class: 'com.sofa.TestObject',
+          $: {
+            field1: 'foo',
+            field2: {
+              field1: 'foo',
+            },
+          },
+        }, version, classMap1, classMap1, compileOptions);
+        const buf12 = encode({
+          $class: 'com.sofa.TestObject',
+          $: {
+            field1: 'foo',
+            field2: {
+              field1: 'foo',
+            },
+          },
+        }, version, classMap1, classMap1, compileOptions);
+
+        assert.deepEqual(bufHessain1, buf11);
+        assert.deepEqual(buf11, buf12);
+
+
+        // com.sofa.TestObject 版本2
+        const classMap2 = {
+          'com.sofa.TestObject': {
+            field1: {
+              type: 'java.lang.String',
+            },
+            field2: {
+              type: 'java.lang.String',
+            },
+            field3: {
+              type: 'com.sofa.TestObjectChild2',
+            },
+          },
+          'com.sofa.TestObjectChild2': {
+            field2: {
+              type: 'java.lang.String',
+            },
+          },
+        };
+        const bufHessain2 = hessian.encode({
+          $class: 'com.sofa.TestObject',
+          $: {
+            field1: 'foo',
+            field2: 'bar',
+            field3: {
+              $class: 'com.sofa.TestObjectChild2',
+              $: {
+                field2: 'foo',
+              },
+            },
+          },
+        }, version);
+        const buf21 = encode({
+          $class: 'com.sofa.TestObject',
+          $: {
+            field1: 'foo',
+            field2: 'bar',
+            field3: {
+              field2: 'foo',
+            },
+          },
+        }, version, classMap2, classMap2, compileOptions);
+        const buf22 = encode({
+          $class: 'com.sofa.TestObject',
+          $: {
+            field1: 'foo',
+            field2: 'bar',
+            field3: {
+              field2: 'foo',
+            },
+          },
+        }, version, classMap2, classMap2, compileOptions);
+
+        assert.deepEqual(bufHessain2, buf21);
+        assert.deepEqual(buf21, buf22);
+        compile.setCache(new Map());
       });
     });
   });
