@@ -1,4 +1,10 @@
 
+1.9.0 / 2020-11-12
+==================
+
+**others**
+  * [[`e2a91c5`](http://github.com/sofastack/sofa-hessian-node/commit/e2a91c50c273a43227f657bcc9609ad01907fd67)] - backport/feat: every classMap will has own compileCache  (#33) (qingfengfeiyang <<imxdy@sina.cn>>)
+
 1.8.2 / 2020-10-29
 ==================
 
