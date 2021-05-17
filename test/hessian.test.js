@@ -16,20 +16,20 @@ describe('test/hessian.test.js', () => {
     hessian: require('hessian.js-1'),
     encode: require('../').encode,
     compile: require('../lib/v3/compile'),
-  }, {
+  }, /*{
     name: 'hessian_4',
     hessian: require('hessian.js'),
     encode: require('../lib/v4').encode,
     compile: require('../lib/v4/compile'),
-  }];
+  }*/];
 
   testSuites.forEach(({ name, hessian, encode, compile }) => {
     describe(name, () => {
       let dir;
       const versions = [
-        { version: '1.0', options: { debug: false } },
-        { version: '1.0', options: { debug: true } },
-        { version: '2.0', options: { debug: false } },
+        // { version: '1.0', options: { debug: false } },
+        // { version: '1.0', options: { debug: true } },
+        // { version: '2.0', options: { debug: false } },
         { version: '2.0', options: { debug: true } },
       ];
 
@@ -47,30 +47,210 @@ describe('test/hessian.test.js', () => {
           });
 
           it('should encode java.util.Map without generic', () => {
-            const obj = {
-              $class: 'java.util.Map',
-              $: { foo: 'bar' },
-              isMap: true,
+            // const obj = {
+            //   $class: 'java.util.Map',
+            //   $: { foo: 'bar' },
+            //   isMap: true,
+            // };
+            // const buf1 = hessian.encode({ $class: 'java.util.Map', $: { foo: 'bar' } }, version);
+            // const buf2 = encode(obj, version, {}, {}, options);
+            // assert.deepEqual(buf1, buf2);
+
+            // const buf3 = encode(obj, version, {}, {}, options);
+            // assert.deepEqual(buf1, buf3);
+
+            // const map = new Map();
+            // map.set('foo', 'bar');
+            // obj.$ = map;
+            // const buf4 = hessian.encode({
+            //   $class: 'java.util.Map',
+            //   $: { foo: { $class: 'java.lang.String', $: 'bar' } },
+            // }, version);
+            // const buf5 = encode(obj, version, {}, {}, options);
+            // assert.deepEqual(buf4, buf5);
+
+            // const buf6 = encode(obj, version, {}, {}, options);
+            // assert.deepEqual(buf4, buf6);
+
+            const classmap = {
+              "com.alipay.antresourcetwa.api.ComponentBasicInfo": {
+                "data": {
+                  "type": "java.util.Map",
+                  isMap: true,
+                }
+              }
             };
-            const buf1 = hessian.encode({ $class: 'java.util.Map', $: { foo: 'bar' } }, version);
-            const buf2 = encode(obj, version, {}, {}, options);
-            assert.deepEqual(buf1, buf2);
 
-            const buf3 = encode(obj, version, {}, {}, options);
-            assert.deepEqual(buf1, buf3);
+            // const buf1 = encode({
+            //   $class: 'com.alipay.antresourcetwa.api.ComponentSpm',
+            //   $: {
+            //     spmc: 'spmc',
+            //     type: 'type',
+            //     subType: 'subType',
+            //     data: {
+            //       xxx: '1111'
+            //     }
+            //   }
+            // }, version, classmap, {}, options);
 
-            const map = new Map();
-            map.set('foo', 'bar');
-            obj.$ = map;
-            const buf4 = hessian.encode({
-              $class: 'java.util.Map',
-              $: { foo: { $class: 'java.lang.String', $: 'bar' } },
+            const buf2 = encode({
+              $class: 'com.alipay.antresourcetwa.api.ComponentBasicInfo',
+              $: {
+                data: {
+                  foo: "bar"
+                }
+              }
+            }, version, classmap, {}, options);
+
+            const buf3 = hessian.encode({
+              $class: 'com.alipay.antresourcetwa.api.ComponentBasicInfo',
+              $: {
+                data: { $class: 'java.lang.Map', $: {
+                  foo: "bar"
+                } },
+              },
             }, version);
-            const buf5 = encode(obj, version, {}, {}, options);
-            assert.deepEqual(buf4, buf5);
+            assert.deepEqual(buf2, buf3);
+          });
 
-            const buf6 = encode(obj, version, {}, {}, options);
-            assert.deepEqual(buf4, buf6);
+          it.only('should encode java.util.Map without generic', () => {
+            dir = path.join(__dirname, 'fixtures/src_2.0');
+            rimraf.sync(dir);
+            mkdirp.sync(dir);
+            mm(process.env, 'HESSIAN_COMPILE_DEBUG', 'true');
+            mm(process.env, 'HESSIAN_COMPILE_DEBUG_DIR', dir);
+            // const obj = {
+            //   $class: 'java.util.Map',
+            //   $: { foo: 'bar' },
+            //   isMap: true,
+            // };
+            // const buf1 = hessian.encode({ $class: 'java.util.Map', $: { foo: 'bar' } }, version);
+
+            const classmap = {
+              "com.alipay.antresourcetwa.api.ComponentBasicInfoResponse": {
+                "infoMap": {
+                  "type": "java.util.Map",
+                  "generic": [
+                    {
+                      "type": "java.lang.String"
+                    },
+                    {
+                      "type": "com.alipay.antresourcetwa.api.ComponentBasicInfo"
+                    }
+                  ]
+                }
+              },
+              "com.alipay.antresourcetwa.api.ComponentSpm": {
+                "spmc": {
+                  "type": "java.lang.String"
+                },
+                "type": {
+                  "type": "java.lang.String"
+                },
+                "subType": {
+                  "type": "java.lang.String"
+                },
+                "data": {
+                  "type": "java.util.Map"
+                }
+              },
+              "com.alipay.antresourcetwa.api.ComponentBasicInfo": {
+                "spmc": {
+                  "type": "java.lang.String"
+                },
+                "type": {
+                  "type": "java.lang.String"
+                },
+                "subType": {
+                  "type": "java.lang.String"
+                },
+                "data": {
+                  "type": "java.util.Map"
+                }
+              }
+            };
+
+            // const buf1 = encode({
+            //   $class: 'java.util.Map',
+            //   "generic": [
+            //     {
+            //       "type": "java.lang.String"
+            //     },
+            //     {
+            //       "type": "com.alipay.antresourcetwa.api.ComponentSpm"
+            //     }
+            //   ],
+            //   $: {
+            //     "ComponentSpmKey": {
+            //       spmc: 'spmc',
+            //       type: 'type',
+            //       subType: 'subType',
+            //       data: {
+            //         foo: 'bar'
+            //       }
+            //     }
+            //   }
+            // }, version, classmap, {}, options);
+
+            const buf2 = encode({
+              $class: 'com.alipay.antresourcetwa.api.ComponentBasicInfoResponse',
+              $: {
+                infoMap: {
+                  "morpho-image-hotzone": {
+                    "spmc": "ca66302473",
+                    "type": "Module",
+                    "subType": "SherryReact",
+                    "data": {
+                      $class: undefined,
+                      $: {},
+                    },
+                    // "data": {
+                    //   $class: 'undefined',
+                    //   $: {},
+                    // },
+                  },
+                  // "morpho-video": {
+                  //   "spmc": "ca66301783",
+                  //   "type": "Module",
+                  //   "subType": "SherryReact",
+                  //   "data": {}
+                  // },
+                }
+              }
+            }, version, classmap, {}, options);
+
+            console.log('====== start buf2 =======');
+console.log(buf2.toString());
+console.log('====== end ========');
+
+            // const buf3 = hessian.encode({
+            //   $class: 'com.alipay.antresourcetwa.api.ComponentBasicInfo',
+            //   $: {
+            //     spmc: { $class: 'java.lang.String', $: 'spmc' },
+            //     type: { $class: 'java.lang.String', $: 'type' },
+            //     subType: { $class: 'java.lang.String', $: 'subType' },
+            //     data: { $class: 'java.util.Map', $: {} },
+            //   },
+            // }, version);
+            // assert.deepEqual(buf2, buf3);
+
+            // assert.deepEqual(buf1, buf2);
+
+            // const buf3 = encode(obj, version, {}, {}, options);
+            // assert.deepEqual(buf1, buf3);
+
+            // const map = new Map();
+            // map.set('foo', 'bar');
+            // obj.$ = map;
+            // const buf4 = hessian.encode({
+            //   $class: 'java.util.Map',
+            //   $: { foo: { $class: 'java.lang.String', $: 'bar' } },
+            // }, version);
+            // const buf5 = encode(obj, version, {}, {}, options);
+            // assert.deepEqual(buf4, buf5);
+
+            // const buf6 = encode(obj, version, {}, {}, options);
+            // assert.deepEqual(buf4, buf6);
           });
 
           it('should encode java.util.Map with generic', () => {
