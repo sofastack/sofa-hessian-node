@@ -394,5 +394,88 @@ describe('test/edge_case.test.js', () => {
         setProperty: [ '233', '23333' ],
       });
     });
+
+    it('java.lang.Object pass java.util.Map type', () => {
+      const a = {
+        $class: 'java.lang.Object',
+        $: {
+          $class: 'java.util.Map',
+          $: {
+            a: 'a',
+          },
+        },
+      };
+      const buf = encode(a, version, {});
+
+      const buf1 = hessian.encode({
+        $class: 'java.util.Map',
+        $: {
+          a: 'a',
+        },
+      }, version);
+
+      assert.deepStrictEqual(buf, buf1);
+    });
+
+    it('custom class pass java.lang.Class primitive type', () => {
+      const a = {
+        $class: 'com.test.aaa',
+        $: {
+          $class: 'java.lang.Class',
+          $: {
+            name: 'a',
+          },
+        },
+      };
+      const buf = encode(a, version, {
+        'com.test.aaa': {},
+      });
+
+      const buf1 = hessian.encode({
+        $class: 'java.lang.Class',
+        $: {
+          name: 'a',
+        },
+      }, version);
+
+      assert.deepStrictEqual(buf, buf1);
+    });
+
+    it('java.lang.Object pass java.util.List type', () => {
+      const a = {
+        $class: 'java.lang.Object',
+        $: {
+          $class: 'java.util.List',
+          $: [ '1' ],
+        },
+      };
+      const buf = encode(a, version, {});
+
+      const buf1 = hessian.encode({
+        $class: 'java.util.List',
+        $: [ '1' ],
+      }, version);
+
+      assert.deepStrictEqual(buf, buf1);
+    });
+
+    it('java.lang.Object pass java.util.Set type', () => {
+      const a = {
+        $class: 'java.lang.Object',
+        $: {
+          $class: 'java.util.Set',
+          $: [ '1' ],
+        },
+      };
+      const buf = encode(a, version, {});
+
+      const buf1 = hessian.encode({
+        $class: 'java.util.Set',
+        $: [ '1' ],
+      }, version);
+
+      assert.deepStrictEqual(buf, buf1);
+    });
+
   });
 });
