@@ -1,4 +1,10 @@
 
+1.9.1 / 2021-05-20
+==================
+
+**fixes**
+  * [[`f438984`](http://github.com/sofastack/sofa-hessian-node/commit/f438984f384214981975c26a92b8ef5085573b00)] - fix: primitive type get type should adapt $class (#34) (mansonchor.github.com <<mansonchor1987@gmail.com>>)
+
 1.9.0 / 2020-11-12
 ==================
 
