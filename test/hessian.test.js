@@ -1620,6 +1620,24 @@ describe('test/hessian.test.js', () => {
         });
       });
 
+      it('should support pass generic no `isArray`, will merge origin genericParam defined', () => {
+        const obj = {
+          $class: 'com.eggjs.dubbo.coresrv.fieldGenericArr',
+          $: {
+            data: [{
+              foo: 'foo',
+            }],
+          },
+          generic: [{
+            type: 'com.alipay.test.Father',
+          }],
+        };
+
+        const buf1 = encode(obj, version, classMap, {}, options);
+        const obj2 = hessian.decode(buf1, version);
+        assert.deepStrictEqual(obj2, { data: [{ foo: 'foo' }] });
+      });
+
       it('should class inheritance', () => {
         const obj = {
           $class: 'com.alipay.test.Father',

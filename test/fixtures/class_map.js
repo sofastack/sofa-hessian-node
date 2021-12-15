@@ -341,4 +341,12 @@ module.exports = {
       'typeAliasIndex': 1
     },
   },
+  "com.eggjs.dubbo.coresrv.fieldGenericArr": {
+    "data": {
+      "type": "D",
+      "typeAliasIndex": 0,
+      "isArray": true,
+      "arrayDepth": 1
+    },
+  },
 };
