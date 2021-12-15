@@ -1,4 +1,10 @@
 
+1.9.2 / 2021-12-16
+==================
+
+**fixes**
+  * [[`49ad642`](http://github.com/sofastack/sofa-hessian-node/commit/49ad642681e26c63d1b8cd93ef9c4ccb33013d73)] - fix: should judge empty when fill attr prop with refType prop (#35) (mansonchor.github.com <<mansonchor1987@gmail.com>>)
+
 1.9.1 / 2021-05-20
 ==================
 
