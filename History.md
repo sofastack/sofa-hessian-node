@@ -1,4 +1,16 @@
 
+2.2.0 / 2022-03-13
+==================
+
+**fixes**
+  * [[`3e5761d`](http://github.com/sofastack/sofa-hessian-node/commit/3e5761d0bf15290d568325d41387a44b77a95d79)] - fix: should judge empty when fill attr prop with refType prop (mansonchor.github.com <<mansonchor1987@gmail.com>>)
+  * [[`b77d7fd`](http://github.com/sofastack/sofa-hessian-node/commit/b77d7fd121211cac3702fb8926af2630f515571d)] - fix: set debug options with call func (mansonchor <<mansonchor1987@gmail.com>>)
+  * [[`8452aad`](http://github.com/sofastack/sofa-hessian-node/commit/8452aadb455aed463aa2f6630064a220c95abd3e)] - fix: primitive type get type should adapt $class (#34) (mansonchor.github.com <<mansonchor1987@gmail.com>>)
+  * [[`c6ac845`](http://github.com/sofastack/sofa-hessian-node/commit/c6ac845738642bf9917e308bbd5eff72117202db)] - fix: fix set encode (killa <<killa123@126.com>>)
+
+**others**
+  * [[`1d4d142`](http://github.com/sofastack/sofa-hessian-node/commit/1d4d142cb8af8949d4d96424f1608fec7d9220f1)] - opt: pre read debug env before compile (killa <<killa123@126.com>>)
+
 2.1.0 / 2020-07-01
 ==================
 
