@@ -1813,8 +1813,7 @@ describe('test/hessian.test.js', () => {
           dir = path.join(__dirname, 'fixtures/src_2.0');
           rimraf.sync(dir);
           mkdirp.sync(dir);
-          mm(process.env, 'HESSIAN_COMPILE_DEBUG', 'true');
-          mm(process.env, 'HESSIAN_COMPILE_DEBUG_DIR', dir);
+          compile.setDebugOptions('true', dir);
         });
 
         it('should write debug file', () => {
