@@ -1,4 +1,10 @@
 
+2.2.1 / 2023-07-28
+==================
+
+**fixes**
+  * [[`6e81e7f`](http://github.com/sofastack/sofa-hessian-node/commit/6e81e7fd8a730c397a0a7ed395412226b56d6ba0)] - fix: wrap enum name with [""] (#38) (killa <<killa123@126.com>>)
+
 2.2.0 / 2022-03-13
 ==================
 
